@@ -6,9 +6,8 @@ export default function Home() {
         setHomeText();
     },[])
     async function setHomeText(){
-        let response = await fetch('http://127.0.0.1:8000/');
+        let response = await fetch('http://127.0.0.1:8000/api/');
         let data = await response.json();
-        console.log(data);
         setText(data['API']);
     }
     return (
