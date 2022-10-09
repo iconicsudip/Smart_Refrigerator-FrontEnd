@@ -6,7 +6,7 @@ export default function Home() {
         setHomeText();
     },[])
     async function setHomeText(){
-        let response = await fetch('http://127.0.0.1:8000/api/');
+        let response = await fetch('https://smrtfrze.herokuapp.com/api/');
         let data = await response.json();
         setText(data['API']);
     }
