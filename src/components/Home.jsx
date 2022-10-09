@@ -11,7 +11,7 @@ export default function Home() {
         setText(data['API']);
     }
     return (
-        <div className='allbody home'>
+        <div className='allbody home text-center'>
             {hometext}
         </div>
     )
