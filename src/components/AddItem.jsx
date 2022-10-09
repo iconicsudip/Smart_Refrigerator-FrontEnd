@@ -34,8 +34,8 @@ export default function AddItem(props) {
                 'Authorization':'Bearer '+ String(authToken.access)
             },
         })
-        // console.log(await data)
-        window.location.reload();
+        console.log(await data.json())
+        // window.location.reload();
     }
     const nextClick = (e)=>{
         e.preventDefault();
