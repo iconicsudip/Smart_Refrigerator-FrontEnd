@@ -1,4 +1,4 @@
-import React, { useState,useContext, useEffect } from 'react'
+import React, { useState,useContext} from 'react'
 import Button from '@mui/material/Button';
 import { useNavigate} from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
@@ -13,10 +13,7 @@ export default function AddItem(props) {
     let {authToken} = useContext(AuthContext);
     const [page, setPage] = useState(0);
     const [progress,setProgress] = useState(0);
-    
-    useEffect(()=>{
-        console.log(authToken.access)
-    },[authToken])
+
     const [formData, setFormData] = useState({
         recipe_name: "",
         vegetables: [],
@@ -25,7 +22,6 @@ export default function AddItem(props) {
         video_link: "",
     });
     const addRecipe = async ()=>{
-        console.log(authToken)
         const data = fetch("https://smrtfrze.herokuapp.com/api/addrecipe/",{
             method:'POST',
             body:JSON.stringify(formData),
@@ -34,8 +30,10 @@ export default function AddItem(props) {
                 'Authorization':'Bearer '+ String(authToken.access)
             },
         })
-        console.log(await data.json())
+        // console.log(await data.json())
         // window.location.reload();
+        navigate('/')
+        localStorage.removeItem('steps')
     }
     const nextClick = (e)=>{
         e.preventDefault();
@@ -60,7 +58,7 @@ export default function AddItem(props) {
         e.preventDefault();
         if(page===0){
             props.Open(false)
-            localStorage.clear();
+            localStorage.removeItem('steps')
         }else{
             setProgress(progress-25);
             setPage(page - 1);
