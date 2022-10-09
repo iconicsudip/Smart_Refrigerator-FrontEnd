@@ -1,4 +1,4 @@
-import React, { useState,useContext } from 'react'
+import React, { useState,useContext, useEffect } from 'react'
 import Button from '@mui/material/Button';
 import { useNavigate} from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
@@ -13,6 +13,10 @@ export default function AddItem(props) {
     let {authToken} = useContext(AuthContext);
     const [page, setPage] = useState(0);
     const [progress,setProgress] = useState(0);
+    
+    useEffect(()=>{
+        console.log(authToken.access)
+    },[authToken])
     const [formData, setFormData] = useState({
         recipe_name: "",
         vegetables: [],
@@ -20,10 +24,9 @@ export default function AddItem(props) {
         recipe_process: [],
         video_link: "",
     });
-    console.log(formData)
     const addRecipe = async ()=>{
         console.log(authToken)
-        const data = fetch("http://127.0.0.1:8000/api/addrecipe/",{
+        const data = fetch("https://smrtfrze.herokuapp.com/api/addrecipe/",{
             method:'POST',
             body:JSON.stringify(formData),
             headers:{
