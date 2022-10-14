@@ -40,7 +40,7 @@ export default function AddRecipe({ formData, setFormData }) {
                         </div>
                         <div className="veg">
                             {formData.vegetables.map((veg,index)=>(
-                                <p style={{fontSize:"16px"}}>
+                                <p style={{fontSize:"16px"}} key={`veg${index}`}>
                                     {veg}
                                 </p>
                             ))}
