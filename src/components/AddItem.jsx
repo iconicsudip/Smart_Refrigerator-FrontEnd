@@ -20,7 +20,7 @@ export default function AddItem(props) {
         video_link: "",
     });
     const addRecipe = async ()=>{
-        let data = fetch("https://smrtfrze.herokuapp.com/api/addrecipe/",{
+        let data =await fetch("https://smrtfrze.herokuapp.com/api/addrecipe/",{
             method:'POST',
             body:JSON.stringify(formData),
             headers:{
@@ -29,7 +29,6 @@ export default function AddItem(props) {
             },
         })
         const raw = (await data)
-        // window.location.reload();
         if(raw.status===200){
             props.setOpen(false);
             props.setAlert(
