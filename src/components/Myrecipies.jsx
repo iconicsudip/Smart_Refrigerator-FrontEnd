@@ -10,7 +10,7 @@ export default function Myrecipies() {
     let {authToken} = useContext(AuthContext);
     useEffect(()=>{
         (async()=>{
-            await fetch("http://127.0.0.1:8000/api/getuserdashboard/",{
+            await fetch("https://smrtfrze.herokuapp.com/api/getuserdashboard/",{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json',

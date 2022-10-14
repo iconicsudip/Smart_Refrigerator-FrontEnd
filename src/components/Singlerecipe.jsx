@@ -44,7 +44,7 @@ export default function Singlerecipe(props) {
     }
     const handleDelete=async (e)=>{
         setLoader(true)
-        await fetch(`http://127.0.0.1:8000/api/recipedelete/${e.target.value}`,{
+        await fetch(`https://smrtfrze.herokuapp.com/api/recipedelete/${e.target.value}`,{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
