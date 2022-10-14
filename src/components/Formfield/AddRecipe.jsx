@@ -4,7 +4,7 @@ import {useEffect } from 'react';
 
 export default function AddRecipe({ formData, setFormData }) {
     
-    const checkList = ["Potato", "Tomato", "Brinjal", "Pointed gourd", "Capsicum", "Lady finger", "Carrot", "Bitter gourd", "Cauliflower", "Spong gourd", "Taro root", "Green beans", "Chilly", "Garlic", "Ginger", "Lemon", "Green peas"];
+    const checkList = ["Potato", "Tomato", "Brinjal", "Pointed gourd", "Capsicum", "Lady finger", "Carrot", "Bitter gourd", "Cauliflower", "Spong gourd", "Taro root", "Green beans", "Chilly", "Garlic", "Ginger", "Lemon", "Green peas","Onion"];
     useEffect(()=>{
         for(var i=0;i<formData.vegetables.length;i++){
             const name = formData.vegetables[i];
