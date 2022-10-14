@@ -1,6 +1,5 @@
 import React, { useState,useContext} from 'react'
 import Button from '@mui/material/Button';
-import { useNavigate} from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
 import AddRecipe from './Formfield/AddRecipe';
 import Ingredient from './Formfield/Ingredient';
@@ -9,7 +8,6 @@ import Others from './Formfield/Others';
 import Confirmation from './Formfield/Confirmation';
 
 export default function AddItem(props) {
-    const navigate = useNavigate();
     let {authToken} = useContext(AuthContext);
     const [page, setPage] = useState(0);
     const [progress,setProgress] = useState(0);
@@ -22,7 +20,7 @@ export default function AddItem(props) {
         video_link: "",
     });
     const addRecipe = async ()=>{
-        const data = fetch("https://smrtfrze.herokuapp.com/api/addrecipe/",{
+        let data = fetch("https://smrtfrze.herokuapp.com/api/addrecipe/",{
             method:'POST',
             body:JSON.stringify(formData),
             headers:{
@@ -30,9 +28,30 @@ export default function AddItem(props) {
                 'Authorization':'Bearer '+ String(authToken.access)
             },
         })
-        // console.log(await data.json())
+        const raw = (await data)
         // window.location.reload();
-        navigate('/')
+        if(raw.status===200){
+            props.setOpen(false);
+            props.setAlert(
+                <div style={{width:"100%"}} className="alert alert-success" role="alert">
+                    <b>Recipe successfully added</b>
+                    <button onClick={()=>{props.setAlert('')}} type="button" className="add-item close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            )
+        }else{
+            props.setOpen(false);
+            props.setAlert(
+                <div style={{width:"100%"}} className="alert alert-success" role="alert">
+                    <b>Authentication problem, please logout then signin and try again</b>
+                    <button onClick={()=>{props.setAlert('')}} type="button" className="add-item close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            )
+            console.log("Authorization problem")
+        }
         localStorage.removeItem('steps')
     }
     const nextClick = (e)=>{
@@ -51,7 +70,6 @@ export default function AddItem(props) {
             }
         }else{
             addRecipe()
-            console.log("submitted")
         }
     }
     const backClick = (e) => {
@@ -79,12 +97,13 @@ export default function AddItem(props) {
     }
     const FormData = ["Recipe Name & Vegetables", "Ingredients", "Process", "Others","Submission"];
     return (
+        <>
         <div className='add-recipe'>
-            <div className="progress-bar shadow bg-secondary rounded-3">
-                <div className="div text-center" style={{width:progress+"%",backgroundColor: page === 4 ? "green" : "purple",}}></div>
-            </div>
             {/* <form className='add-item-form' onSubmit={()=>addRecipe()} > */}
             <form className='add-item-form'>
+                <div className="progress-bar shadow bg-secondary rounded-3">
+                    <div className="div text-center" style={{width:progress+"%",backgroundColor: page === 4 ? "green" : "purple",}}></div>
+                </div>
                 <h3 className={`"display-2" ${page === 4 ? "text-success" : "text-purple"} text-center`}>{FormData[page]}</h3>
                 <div className="recipe-form">
                     {PageDisplay()}
@@ -96,5 +115,6 @@ export default function AddItem(props) {
                 </div>
             </form>
         </div>
+        </>
     )
 }

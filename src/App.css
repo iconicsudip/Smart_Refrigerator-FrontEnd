@@ -96,12 +96,17 @@ form.add-item-form{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    text-align: left;
 }
 
 .checked-vegetables{
     height: 50vh;
     overflow: auto;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-direction: column;
+}
+.veg{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
 }
