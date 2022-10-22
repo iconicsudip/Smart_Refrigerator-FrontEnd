@@ -34,7 +34,7 @@ export default function Dashboard() {
     // setSearchResult(null)
     setLoader(true)
     if(e.target.value!==""){
-      await fetch("http://127.0.0.1:8000/api/gosearch/",{
+      await fetch("https://smrtfrze.herokuapp.com/api/gosearch/",{
           method:'POST',
           body: JSON.stringify({item:e.target.value}),
           headers:{
