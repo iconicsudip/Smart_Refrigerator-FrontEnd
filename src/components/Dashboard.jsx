@@ -77,6 +77,9 @@ export default function Dashboard() {
     }, 3000);
     
   }
+  const eraseList = (e)=>{
+    setSearchResult(null)
+  }
   return (
     <div className='allbody dashboard'>
         {Alert}
@@ -91,25 +94,28 @@ export default function Dashboard() {
         <form className="dashboard-search-form form-inline align-center my-2 my-lg-0 d-inline w-100" onSubmit={searchItems}>
           <TextField className='search-box' value={search} onChange={toSearch} size="small" id="fullWidth" label="Search Recipe" variant="outlined" autoComplete='false'/>
           {searchresult?
-          <div className="search_result">
-            {loader?
-            <div className="loader" style={{marginTop:0}}>
-                <img src="./loading.gif" width={40} alt="" />
-            </div>:
-            Array.isArray(searchresult)?
-            <List>
-              {searchresult.map((sr,ind)=>{
-                  return(
-                    <ListItem disablePadding onClick={getItem} key={"item"+ind}>
-                        <ListItemButton >
-                          <b>{search.charAt(0).toUpperCase() + search.slice(1)}</b>{sr.substring(search.length)}
-                        </ListItemButton>
-                    </ListItem>
-                )
-              })}
-            </List>
-            :searchresult}
-          </div>
+            <div className="search_result">
+              {loader?
+              <div className="loader" style={{marginTop:0}}>
+                  <img src="./loading.gif" width={40} alt="" />
+              </div>:
+              <div className="close-items">
+                <span class="close" onClick={eraseList}>&times;</span>
+                {Array.isArray(searchresult)?
+                  <List style={{width:"100%"}}>
+                    {searchresult.map((sr,ind)=>{
+                      return (
+                        <ListItem disablePadding onClick={getItem} key={"item"+ind}>
+                          <ListItemButton >
+                            <b>{search.charAt(0).toUpperCase() + search.slice(1)}</b>{sr.substring(search.length)}
+                          </ListItemButton>
+                        </ListItem>
+                      )
+                    })}
+                  </List>
+                :<span style={{textAlign:"center",width: "100%"}}>{searchresult}</span>}
+              </div>}
+            </div>
           :null}
           <Button className='search-item' onClick={searchItems} variant="contained">Search</Button>
         </form>
