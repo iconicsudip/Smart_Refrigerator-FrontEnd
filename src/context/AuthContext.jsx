@@ -62,7 +62,9 @@ export const AuthProvider = ({children})=>{
         let response = await fetch('https://smrtfrze.herokuapp.com/api/token/refresh/',{
             method:'POST',
             headers:{
-                'Content-Type':'application/json'
+                'Content-Type':'application/json',
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "*"
             },
             body:JSON.stringify({'refresh':authToken?.refresh})
         })
