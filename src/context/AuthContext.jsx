@@ -67,7 +67,7 @@ export const AuthProvider = ({children})=>{
             body:JSON.stringify({'refresh':authToken?.refresh})
         })
         let data = await response.json()
-        
+        console.log(data)
         if(response.status===200){
             setAuthToken(data);
             setUsername(jwt_decode(data.access))
