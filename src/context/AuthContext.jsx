@@ -64,7 +64,7 @@ export const AuthProvider = ({children})=>{
             headers:{
                 'Content-Type':'application/json',
                 "Access-Control-Allow-Origin": "https://smartfreeze.netlify.app",
-                "Access-Control-Allow-Methods": "*"
+                "Access-Control-Allow-Methods": "https://smartfreeze.netlify.app"
             },
             body:JSON.stringify({'refresh':authToken?.refresh})
         })
