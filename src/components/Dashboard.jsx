@@ -44,7 +44,7 @@ export default function Dashboard() {
     setLoader(true)
     if(final_item!==""){
       
-      await fetch("https://smrtfrze.herokuapp.com/api/gosearch/",{
+      await fetch("https://smrtfrze.up.railway.app/api/gosearch/",{
           method:'POST',
           body: JSON.stringify({item:final_item}),
           headers:{
