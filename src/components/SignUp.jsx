@@ -30,7 +30,7 @@ export default function SignUp() {
             alert("Fill these place");
         }else{
             // console.log(name,username,email,fpassword,spassword);
-            const result = await fetch('https://smrtfrze.up.railway.app/api/user/register/', {
+            const result = await fetch('https://smart-refrigerator-back-end.vercel.app/api/user/register/', {
                 method: "post",
                 credentials:'same-origin',
                 body: JSON.stringify({ name,username, email,fpassword,spassword }),

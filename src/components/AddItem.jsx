@@ -20,7 +20,7 @@ export default function AddItem(props) {
         video_link: "",
     });
     const addRecipe = async ()=>{
-        let data =await fetch("https://smrtfrze.up.railway.app/api/addrecipe/",{
+        let data =await fetch("https://smart-refrigerator-back-end.vercel.app/api/addrecipe/",{
             method:'POST',
             body:JSON.stringify(formData),
             headers:{

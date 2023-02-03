@@ -44,7 +44,7 @@ export default function Singlerecipe(props) {
     }
     const handleDelete=async (e)=>{
         setLoader(true)
-        await fetch(`https://smrtfrze.up.railway.app/api/recipedelete/${e.target.value}`,{
+        await fetch(`https://smart-refrigerator-back-end.vercel.app/api/recipedelete/${e.target.value}`,{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',

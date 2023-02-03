@@ -10,7 +10,7 @@ export default function Myrecipies() {
     let {authToken} = useContext(AuthContext);
     useEffect(()=>{
         (async()=>{
-            await fetch("https://smrtfrze.up.railway.app/api/getuserdashboard/",{
+            await fetch("https://smart-refrigerator-back-end.vercel.app/api/getuserdashboard/",{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json',

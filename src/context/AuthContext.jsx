@@ -13,7 +13,7 @@ export const AuthProvider = ({children})=>{
     const [customalert,setAlert] = useState('');
     let loginUser = async (e)=>{
         e.preventDefault();
-        let username_url = 'https://smrtfrze.up.railway.app/api/getusername/'+e.target.email.value;
+        let username_url = 'https://smart-refrigerator-back-end.vercel.app/api/getusername/'+e.target.email.value;
         let user_name = await fetch(username_url);
         const raw = await user_name.json();
         if(await user_name.status === 400){
@@ -26,7 +26,7 @@ export const AuthProvider = ({children})=>{
                 </div>
             );
         }else{
-            let response = await fetch('https://smrtfrze.up.railway.app/api/token/',{
+            let response = await fetch('https://smart-refrigerator-back-end.vercel.app/api/token/',{
                 method:'POST',
                 headers:{
                     'Content-Type':'application/json'
@@ -59,7 +59,7 @@ export const AuthProvider = ({children})=>{
     },[navigate])
 
     let updateToken = useCallback(async ()=>{
-        let response = await fetch('https://smrtfrze.up.railway.app/api/token/refresh/',{
+        let response = await fetch('https://smart-refrigerator-back-end.vercel.app/api/token/refresh/',{
             method:'POST',
             headers:{
                 'Content-Type':'application/json',
