@@ -6,7 +6,7 @@ export default function Home() {
         setHomeText();
     },[])
     async function setHomeText(){
-        let response = await fetch('https://smart-refrigerator-back-end.vercel.app/api/');
+        let response = await fetch(`${process.env.REACT_APP_API}/api/`);
         let data = await response.json();
         console.log(data);
         setText(data['API']);

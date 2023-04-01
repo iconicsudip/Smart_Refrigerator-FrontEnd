@@ -44,7 +44,7 @@ export default function Dashboard() {
     setLoader(true)
     if(final_item!==""){
       
-      await fetch("https://smart-refrigerator-back-end.vercel.app/api/gosearch/",{
+      await fetch(`${process.env.REACT_APP_API}/api/gosearch/`,{
           method:'POST',
           body: JSON.stringify({item:final_item}),
           headers:{

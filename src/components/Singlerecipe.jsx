@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import { TextField } from '@mui/material';
 import AuthContext from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Singlerecipe(props) {
     let {authToken} = useContext(AuthContext);
@@ -19,6 +20,7 @@ export default function Singlerecipe(props) {
     const [loader,setLoader] = useState(false);
     const [recipename,setRecipename] = useState(props.recipe["recipe_name"])
     const temp_recipe_name = props.recipe["recipe_name"]
+    const navigate =useNavigate();
     const handleClickOpen = (e) => {
         setOpen(true);
         //props.recipe["id"]
@@ -44,7 +46,7 @@ export default function Singlerecipe(props) {
     }
     const handleDelete=async (e)=>{
         setLoader(true)
-        await fetch(`https://smart-refrigerator-back-end.vercel.app/api/recipedelete/${e.target.value}`,{
+        await fetch(`${process.env.REACT_APP_API}/api/recipedelete/${e.target.value}`,{
             method:'GET',
             headers:{
                 'Content-Type':'application/json',
@@ -87,7 +89,7 @@ export default function Singlerecipe(props) {
                 <CardActions>
                     <Button size="small" variant="contained" value={1} onClick={handleClickOpen}>Edit</Button>
                     <Button size="small" variant="contained" color="error" value={"delete"} onClick={handleClickOpen}>Delete</Button>
-                    <Button size="small" variant="contained" value={0} color="secondary" onClick={handleClickOpen}>Learn More</Button>
+                    <Button size="small" variant="contained" value={0} color="secondary" onClick={()=>navigate(`/myrecipies/recipe/${props.recipe['id']}`)}>Learn More</Button>
                 </CardActions>
             </Card>
             <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
