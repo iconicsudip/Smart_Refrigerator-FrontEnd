@@ -11,6 +11,7 @@ import CardMedia from '@mui/material/CardMedia';
 import { TextField } from '@mui/material';
 import AuthContext from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 export default function Singlerecipe(props) {
     let {authToken} = useContext(AuthContext);
@@ -71,6 +72,7 @@ export default function Singlerecipe(props) {
         setOpen(false);
     }
     return (
+        <>
         <div className='recipecard'>
             <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
@@ -89,7 +91,7 @@ export default function Singlerecipe(props) {
                 <CardActions>
                     <Button size="small" variant="contained" value={1} onClick={handleClickOpen}>Edit</Button>
                     <Button size="small" variant="contained" color="error" value={"delete"} onClick={handleClickOpen}>Delete</Button>
-                    <Button size="small" variant="contained" value={0} color="secondary" onClick={()=>navigate(`/myrecipies/recipe/${props.recipe['id']}`)}>Learn More</Button>
+                    {/* <Button size="small" variant="contained" value={0} color="secondary" onClick={()=>navigate(`/myrecipies/recipe/${props.recipe['id']}`)}>Learn More</Button> */}
                 </CardActions>
             </Card>
             <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
@@ -126,5 +128,25 @@ export default function Singlerecipe(props) {
                 </Box>
             </Modal>
         </div>
+        <div class="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
+            <div class="inner-box">
+                <div class="image">
+                    <Link to={`/myrecipies/recipe/${props.recipe['id']}`}><img src="images/resource/entertaining-5.jpg" alt="" /></Link>
+                </div>
+                <div class="lower-content">
+                    <div class="author-image"><img src="images/resource/author-4.jpg" alt="" /></div>
+                    <div class="category">Gluten Free Recipes</div>
+                    <h4><Link to={`/myrecipies/recipe/${props.recipe['id']}`}>{props.recipe["recipe_name"]}</Link></h4>
+                    <div class="text">Discover a sleighload of tasty snacks that are just right for holiday feasting.</div>
+                    <ul class="post-meta">
+                        <li><span class="icon flaticon-dish"></span>4 ingredients</li>
+                        <li><span class="icon flaticon-clock-3"></span>6 Min</li>
+                        <li><span class="icon flaticon-business-and-finance"></span>4 People</li>
+                    </ul>
+                </div>
+            </div>
+		</div>
+        </>
     )
+
 }
