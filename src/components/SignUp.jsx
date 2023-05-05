@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { useNavigate  } from "react-router-dom";
-import { TextField,Button } from '@mui/material';
+import {Link} from 'react-router-dom'
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -86,35 +86,72 @@ export default function SignUp() {
         event.preventDefault();
     };
     return (
-        <div className='allbody'>
-            <form method="POST" onSubmit={Submit}>
-                {customalert}
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Full Name</label>
-                    <TextField id="fullWidth " type="name" size='small' label="Full Name" variant="outlined" value={name} onChange={(e) => setName(e.target.value)} fullWidth  required/>
+        <>
+
+
+            <section class="page-title" style={{backgroundImage:"url(images/background/17.png)"}}>
+                <div class="auto-container">
+                    <h1>Register</h1>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Username</label>
-                    <TextField id="fullWidth " type="username" size='small' label="Username" variant="outlined" value={username} onChange={(e) => setUsername(e.target.value)} fullWidth  required/>
+            </section>
+            <div class="register-container margin">
+                <div class="top-layer" style={{backgroundImage:"url(images/background/20.png)"}}></div>
+                <div class="bottom-layer" style={{backgroundImage:"url(images/background/21.png)"}}></div>
+                <div class="auto-container">
+                    <div class="inner-container">
+                        <div class="row clearfix">
+                            <div class="image-column col-lg-6 col-md-12 col-sm-12">
+                                <div class="inner-column">
+                                    <div class="image">
+                                        <img src="images/resource/contact.jpg" alt="" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-column col-lg-6 col-md-12 col-sm-12">
+                                <div class="inner-column">
+                                    <div class="pattern-layer" style={{backgroundImage:"url(images/background/18.png)"}}></div>
+                                    <div class="pattern-layer-2" style={{backgroundImage:"url(images/background/19.png)"}}></div>
+                                    <div class="register-form">
+                                            
+                                        <form method="POST" onSubmit={Submit}>
+                                            {customalert}
+                                            <div class="form-group">
+                                                <input type="text" name="username" placeholder="User Name" value={username} onChange={(e) => setUsername(e.target.value)} required/>
+                                            </div>
+                                            
+                                            <div class="form-group">
+                                                <input type="text" value={name} name="name" placeholder="Full Name" onChange={(e) => setName(e.target.value)} required/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
+                                            </div>
+                                            <div class="form-group position-relative d-flex">
+                                                <input type={type} name="password" placeholder="Password" value={fpassword} onChange={(e) => setFpassword(e.target.value)} required/>
+                                                <IconButton className='eye-button' aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end" >
+                                                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                                                </IconButton>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <input type="password" name="password" placeholder="Confirm password" value={spassword} onChange={(e) => setSpassword(e.target.value)} required/>
+                                            </div>
+                                            
+                                            
+                                            <div class="form-group">
+                                                <button class="theme-btn btn-style-one" type="submit" name="submit-form"><span class="txt">Register</span></button>
+                                                Already have an account? <Link to="/signin">Log In</Link>
+                                            </div>
+
+                                        </form>
+                                            
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <TextField id="fullWidth " type="email" size='small' label="Email" variant="outlined" value={email} onChange={(e) => setEmail(e.target.value)} fullWidth  required/>
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <TextField id="fullWidth " type={type} size='small' label="Password" variant="outlined" value={fpassword} onChange={(e) => setFpassword(e.target.value)} fullWidth  required/>
-                    <IconButton className='eye-button' aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end" >
-                        {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="exampleInputPassword1">Repeat Password</label>
-                    <TextField id="fullWidth " type="password" size='small' label="Repeat Password" variant="outlined" value={spassword} onChange={(e) => setSpassword(e.target.value)} fullWidth  required/>
-                </div>
-                <Button className='add-item' fullWidth type='submit' variant="contained" color="secondary">Sign Up</Button>
-            </form>
-        </div>  
+	        </div>
+        </>
     )
 }
