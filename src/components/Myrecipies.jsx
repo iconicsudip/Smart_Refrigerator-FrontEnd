@@ -29,23 +29,10 @@ export default function Myrecipies() {
     },[myrecipies,setLoader])
     return (
         <>
-        <div className='recipebody'>
-            {loader?
-            <div className="loader">
-                <img src="./loading.gif" width={40} alt="" />
-            </div>:null}
-            {showdeletealert}
-            {myrecipies.length!==0?myrecipies.map((recipe,index)=>{
-                return <Singlerecipe setMyrecipies={setMyrecipies} recipe={recipe} setDeleteAlert={setDeleteAlert} key={`recipe${index}`}/>
-            }):
-            <>
-            <p className='text-center'>{showalert}</p>
-            </>
-            }
-        </div>
+        
         <section className="page-title" style={{backgroundImage:"url(images/background/10.jpg"}}>
             <div className="auto-container">
-                <h1>Recipes 02</h1>
+                <h1>My Recipes </h1>
             </div>
         </section>
         <section class="product-form-section style-two">
