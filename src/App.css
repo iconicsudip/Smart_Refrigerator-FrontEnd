@@ -1,8 +1,14 @@
+@import url('assets/css/bootstrap.css');
+@import url('assets/css/main.css');
+@import url('assets/css/responsive.css');
+body{
+    /* background: black; */
+}
 .allbody{
     display: flex;
     width: 100%;
     height: calc(100vh - 3.5rem);
-    margin-top: 3.5rem;
+    margin-top: 11rem;
     justify-content: center;
     align-content: center;
     align-items: center;
@@ -52,6 +58,8 @@ form.add-item-form{
 }
 .form-group .eye-button{
     position: absolute;
+    right: 1rem;
+    top: 0.3rem;
 }
 .progress-bar {
     width: 100%;

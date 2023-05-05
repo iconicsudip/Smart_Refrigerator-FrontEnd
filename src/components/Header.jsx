@@ -6,42 +6,82 @@ export default function Header() {
     let {username,logoutUser} = useContext(AuthContext);
     // console.log(username["username"])
     return (
-        <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light">
-            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
-                <span className="navbar-toggler-icon"></span>
-            </button>
-            <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <Link className="navbar-brand" to="/">LoGo</Link>
-                <ul className="navbar-nav mr-auto mt-2 mt-lg-0" >
-                    <li className="nav-item active">
-                        <Link className="nav-link" to="/">Home</Link>
-                    </li>
-                    {username ? (
-                        <>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/dashboard">Dashboard</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/myrecipies">My Recipies</Link>
-                            </li>
-                            <li className="nav-item" style={{"margin": "auto"}}>
-                                <Button fullWidth className='add-item' variant="contained" size="small" onClick={logoutUser} color="error">LogOut</Button>
-                            </li>
-                        </>
-                    ) : (
-                        <>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/signup">SignUp</Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="/signin">SignIn</Link>
-                            </li>
-                        </>
-                    )}
-                </ul>
-                
-            </div>
-            {username ?  (username.username) : null}
-        </nav>
+        <>
+            <header className="main-header fixed-top header-style-one">
+                <div className="header-upper">
+                    <div className="auto-container">
+                        <div className="clearfix">
+                            
+                            <div className="pull-left logo-box">
+                                <div className="logo"><Link to="/"><img src="images/logo.png" alt="" title=""/></Link></div>
+                            </div>
+                            
+                            <div className="nav-outer clearfix">
+                                <div className="mobile-nav-toggler"><span className="icon flaticon-menu"></span></div>
+                                <nav className="main-menu navbar-expand-md">
+                                    <div className="navbar-header">
+                                        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                            <span className="icon-bar"></span>
+                                            <span className="icon-bar"></span>
+                                            <span className="icon-bar"></span>
+                                        </button>
+                                    </div>
+
+                                    <div className="navbar-collapse show collapse clearfix" id="navbarSupportedContent">
+                                        <ul className="navigation clearfix">
+                                            <li><Link to="/">Home</Link></li>
+                                            {username ? (
+                                                <>
+                                                    <li>
+                                                        <Link className="nav-link" to="/dashboard">Dashboard</Link>
+                                                    </li>
+                                                    <li>
+                                                        <Link className="nav-link" to="/myrecipies">My Recipies</Link>
+                                                    </li>
+                                                </>
+                                            ) : null}
+                                            {/* <li><Link to="about-us.html">About</Link></li> */}
+                                            {/* <li><Link to="category.html">Category</Link></li> */}
+                                            {/* <li><Link to="blogs.html">Blogs</Link></li> */}
+                                            {/* <li><Link to="contact.html">Contact us</Link></li> */}
+                                        </ul>
+                                    </div>
+                                    
+                                </nav>
+                                
+                                <div className="outer-box">
+                                    <ul className="login-info">
+                                        {username ? 
+                                        <>
+                                        <li>
+                                            <Link to="" onClick={logoutUser}>Log out {username.username}</Link>                                            
+                                        </li>
+                                        <li>
+                                        </li>
+                                        </>
+                                        :
+                                        <li><Link to="/signin"><span className="icon fa fa-user"></span>Login</Link></li>
+                                        }
+                                        <li className="recipe"><Link to="add-recipe.html"><span className="fa fa-plus-circle"></span>&nbsp; Add Recipe</Link></li>
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+                <div className="mobile-menu">
+                    <div className="menu-backdrop"></div>
+                    <div className="close-btn"><span className="icon fa fa-remove"></span></div>
+                    
+                    <nav className="menu-box">
+                        <div className="nav-logo"><Link to="index.html"><img src="images/logo-2.png" alt="" title=""/></Link></div>
+                        <div className="menu-outer"></div>
+                    </nav>
+                </div>
+                {/* {username ?  (username.username) : null} */}
+            </header>
+        </>
     )
 }
