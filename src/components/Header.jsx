@@ -56,13 +56,11 @@ export default function Header() {
                                         <li>
                                             <Link to="" onClick={logoutUser}>Log out {username.username}</Link>                                            
                                         </li>
-                                        <li>
-                                        </li>
+                                        <li className="recipe"><Link to="add-recipe.html"><span className="fa fa-plus-circle"></span>&nbsp; Add Recipe</Link></li>
                                         </>
                                         :
                                         <li><Link to="/signin"><span className="icon fa fa-user"></span>Login</Link></li>
                                         }
-                                        <li className="recipe"><Link to="add-recipe.html"><span className="fa fa-plus-circle"></span>&nbsp; Add Recipe</Link></li>
                                     </ul>
                                 </div>
                                 
