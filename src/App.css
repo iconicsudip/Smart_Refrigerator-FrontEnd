@@ -175,3 +175,6 @@ form.add-item-form{
     flex-direction: column;
     align-items: flex-start;
 }
+.MuiModal-root{
+    top: 50%!important;
+}
