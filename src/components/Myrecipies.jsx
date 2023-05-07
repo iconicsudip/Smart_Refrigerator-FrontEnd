@@ -30,27 +30,27 @@ export default function Myrecipies() {
     return (
         <>
         
-        <section className="page-title" style={{backgroundImage:"url(images/background/10.jpg"}}>
+        <section className="page-title" style={{backgroundImage:"url(assets/images/background/10.jpg"}}>
             <div className="auto-container">
                 <h1>My Recipes </h1>
             </div>
         </section>
-        <section class="product-form-section style-two">
+        <section className="product-form-section style-two">
 	</section>
-	<section class="popular-recipes-section style-three">
-		<div class="auto-container">
-			<div class="sec-title">
-				<div class="clearfix">
-					<div class="pull-left">
+	<section className="popular-recipes-section style-three">
+		<div className="auto-container">
+			<div className="sec-title">
+				<div className="clearfix">
+					<div className="pull-left">
 						<h2>My Recipes Posts</h2>
-						<div class="text">"Elevate your home cooking game with our recipe library"</div>
+						<div className="text">"Elevate your home cooking game with our recipe library"</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="outer-container">
+		<div className="outer-container">
 			
-			<div class="row clearfix justify-content-center">
+			<div className="row clearfix justify-content-center">
 
                 {loader?
                 <div className="loader">

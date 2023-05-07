@@ -17,18 +17,18 @@ export default function Home() {
         <section className="banner-section-two">
             <div className="banner-carousel owl-theme owl-carousel">
                 <div className="slide-item">
-                    <div className="image-layer" style={{backgroundImage:"url(images/background/6.jpg)"}}></div>
+                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
                     <div className="auto-container">
                         <div className="content-box">
                             <div className="image">
-                                <img src="images/resource/image-1.png" alt="" />
+                                <img src="assets/images/resource/image-1.png" alt="" />
                             </div>
                             
                             <div className="author-name">
                                 <div className="author-inner">
                                     <div className="author-icon">
-                                        <img src="images/resource/author-1.jpg" alt="" />
+                                        <img src="assets/images/resource/author-1.jpg" alt="" />
                                     </div>
                                     by Mahfuz Riad
                                 </div>
@@ -55,18 +55,18 @@ export default function Home() {
 
             
                 <div className="slide-item">
-                    <div className="image-layer" style={{backgroundImage:"url(images/background/6.jpg)"}}></div>
+                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
                     <div className="auto-container">
                         <div className="content-box">
                             <div className="image">
-                                <img src="images/resource/image-1.png" alt="" />
+                                <img src="assets/images/resource/image-1.png" alt="" />
                             </div>
                             
                             <div className="author-name">
                                 <div className="author-inner">
                                     <div className="author-icon">
-                                        <img src="images/resource/author-1.jpg" alt="" />
+                                        <img src="assets/images/resource/author-1.jpg" alt="" />
                                     </div>
                                     by Mahfuz Riad
                                 </div>
@@ -93,18 +93,18 @@ export default function Home() {
                 
                 
                 <div className="slide-item">
-                    <div className="image-layer" style={{backgroundImage:"url(images/background/6.jpg)"}}></div>
+                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
                     <div className="auto-container">
                         <div className="content-box">
                             <div className="image">
-                                <img src="images/resource/image-1.png" alt="" />
+                                <img src="assets/images/resource/image-1.png" alt="" />
                             </div>
                             
                             <div className="author-name">
                                 <div className="author-inner">
                                     <div className="author-icon">
-                                        <img src="images/resource/author-1.jpg" alt="" />
+                                        <img src="assets/images/resource/author-1.jpg" alt="" />
                                     </div>
                                     by Mahfuz Riad
                                 </div>
@@ -133,14 +133,14 @@ export default function Home() {
         </section>
         <section className="trending-section style-two">
 		<div className="auto-container">
-			<div className="layer-three" style={{backgroundImage: "url(images/background/7.png)"}}></div>
-			<div className="layer-four" style={{backgroundImage: "url(images/background/8.png)"}}></div>
+			<div className="layer-three" style={{backgroundImage: "url(assets/images/background/7.png)"}}></div>
+			<div className="layer-four" style={{backgroundImage: "url(assets/images/background/8.png)"}}></div>
 			<div className="row clearfix">
 			
 				<div className="image-column col-lg-5 col-md-12 col-sm-12">
 					<div className="inner-column">
 						<div className="image">
-							<img src="images/resource/category.png" alt="" />
+							<img src="assets/images/resource/category.png" alt="" />
 							<div className="mints">15 Min</div>
 						</div>
 					</div>
@@ -184,10 +184,10 @@ export default function Home() {
                     <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                         <div className="inner-box">
                             <div className="image">
-                                <Link to="recipes-detail.html"><img src="images/resource/recipe-8.jpg" alt="" /></Link>
+                                <Link to="recipes-detail.html"><img src="assets/images/resource/recipe-8.jpg" alt="" /></Link>
                             </div>
                             <div className="lower-content">
-                                <div className="author-image"><img src="images/resource/author-5.jpg" alt="" /></div>
+                                <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>
                                 {/* <div className="category">CHICKEN</div> */}
                                 <h4><Link to="recipes-detail.html">Pressure-Cooker Beef Short Ribs with Chutney</Link></h4>
                                 <div className="text">Discover a sleighload of tasty snacks that are just right for holiday feasting.</div>
@@ -204,10 +204,10 @@ export default function Home() {
                     <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                         <div className="inner-box">
                             <div className="image">
-                                <Link to="recipes-detail.html"><img src="images/resource/recipe-9.jpg" alt="" /></Link>
+                                <Link to="recipes-detail.html"><img src="assets/images/resource/recipe-9.jpg" alt="" /></Link>
                             </div>
                             <div className="lower-content">
-                                <div className="author-image"><img src="images/resource/author-4.jpg" alt="" /></div>
+                                <div className="author-image"><img src="assets/images/resource/author-4.jpg" alt="" /></div>
                                 {/* <div className="category">Gluten Free Recipes</div> */}
                                 <h4><Link to="recipes-detail.html">Pressure-Cooker Beef Short Ribs with Chutney</Link></h4>
                                 <div className="text">Discover a sleighload of tasty snacks that are just right for holiday feasting.</div>
@@ -224,10 +224,10 @@ export default function Home() {
                     <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                         <div className="inner-box">
                             <div className="image">
-                                <Link to="recipes-detail.html"><img src="images/resource/recipe-10.jpg" alt="" /></Link>
+                                <Link to="recipes-detail.html"><img src="assets/images/resource/recipe-10.jpg" alt="" /></Link>
                             </div>
                             <div className="lower-content">
-                                <div className="author-image"><img src="images/resource/author-6.jpg" alt="" /></div>
+                                <div className="author-image"><img src="assets/images/resource/author-6.jpg" alt="" /></div>
                                 {/* <div className="category">Cooking Style</div> */}
                                 <h4><Link to="recipes-detail.html">Pressure-Cooker Beef Short Ribs with Chutney</Link></h4>
                                 <div className="text">Discover a sleighload of tasty snacks that are just right for holiday feasting.</div>

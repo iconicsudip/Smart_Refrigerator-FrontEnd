@@ -89,28 +89,28 @@ export default function SignUp() {
         <>
 
 
-            <section class="page-title" style={{backgroundImage:"url(images/background/17.png)"}}>
+            <section class="page-title" style={{backgroundImage:"url(assets/images/background/17.png)"}}>
                 <div class="auto-container">
                     <h1>Register</h1>
                 </div>
             </section>
             <div class="register-container margin">
-                <div class="top-layer" style={{backgroundImage:"url(images/background/20.png)"}}></div>
-                <div class="bottom-layer" style={{backgroundImage:"url(images/background/21.png)"}}></div>
+                <div class="top-layer" style={{backgroundImage:"url(assets/images/background/20.png)"}}></div>
+                <div class="bottom-layer" style={{backgroundImage:"url(assets/images/background/21.png)"}}></div>
                 <div class="auto-container">
                     <div class="inner-container">
                         <div class="row clearfix">
                             <div class="image-column col-lg-6 col-md-12 col-sm-12">
                                 <div class="inner-column">
                                     <div class="image">
-                                        <img src="images/resource/contact.jpg" alt="" />
+                                        <img src="assets/images/resource/contact.jpg" alt="" />
                                     </div>
                                 </div>
                             </div>
                             <div class="form-column col-lg-6 col-md-12 col-sm-12">
                                 <div class="inner-column">
-                                    <div class="pattern-layer" style={{backgroundImage:"url(images/background/18.png)"}}></div>
-                                    <div class="pattern-layer-2" style={{backgroundImage:"url(images/background/19.png)"}}></div>
+                                    <div class="pattern-layer" style={{backgroundImage:"url(assets/images/background/18.png)"}}></div>
+                                    <div class="pattern-layer-2" style={{backgroundImage:"url(assets/images/background/19.png)"}}></div>
                                     <div class="register-form">
                                             
                                         <form method="POST" onSubmit={Submit}>
