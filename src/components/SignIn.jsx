@@ -36,7 +36,7 @@ export default function SignIn() {
     <>
       <section
         className="page-title"
-        style={{ backgroundImage: "url(images/background/17.png)" }}
+        style={{ backgroundImage: "url(assets/images/background/17.png)" }}
       >
         <div className="auto-container">
           <h1>login</h1>
@@ -45,24 +45,24 @@ export default function SignIn() {
       <div className="login-container margin">
         <div
           className="top-layer"
-          style={{ backgroundImage: "url(images/background/20.png)" }}
+          style={{ backgroundImage: "url(assets/images/background/20.png)" }}
         ></div>
         <div
           className="bottom-layer"
-          style={{ backgroundImage: "url(images/background/21.png)" }}
+          style={{ backgroundImage: "url(assets/images/background/21.png)" }}
         ></div>
         <div className="auto-container">
           <div className="inner-container">
             <div className="image">
-              <img src="images/resource/login.jpg" alt="" />
+              <img src="assets/images/resource/login.jpg" alt="" />
               <div className="login-form">
                 <div
                   className="pattern-layer"
-                  style={{ backgroundImage: "url(images/background/18.png)" }}
+                  style={{ backgroundImage: "url(assets/images/background/18.png)" }}
                 ></div>
                 <div
                   className="pattern-layer-2"
-                  style={{ backgroundImage: "url(images/background/19.png)" }}
+                  style={{ backgroundImage: "url(assets/images/background/19.png)" }}
                 ></div>
                 <form onSubmit={loginUser}>
                   {customalert}
@@ -84,7 +84,7 @@ export default function SignIn() {
                       required
                     />
                     <IconButton
-                      classNameName="eye-button"
+                      className="eye-button"
                       aria-label="toggle password visibility"
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}

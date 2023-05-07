@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard';
 import {AuthProvider} from './context/AuthContext';
 import Myrecipies from './components/Myrecipies';
 import ViewRecipe from './components/ViewRecipe';
+import 'bootstrap/dist/js/bootstrap.min.js'
 function App() {
   useEffect(()=>{
     localStorage.removeItem('steps')

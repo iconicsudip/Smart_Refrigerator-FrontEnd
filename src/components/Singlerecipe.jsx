@@ -78,10 +78,10 @@ export default function Singlerecipe(props) {
         <div class="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
             <div class="inner-box">
                 <div class="image">
-                    <Link to={`/myrecipies/recipe/${props.recipe['id']}`}><img src="images/resource/entertaining-5.jpg" alt="" /></Link>
+                    <Link to={`/myrecipies/recipe/${props.recipe['id']}`}><img src="assets/images/resource/entertaining-5.jpg" alt="" /></Link>
                 </div>
                 <div class="lower-content">
-                    <div class="author-image"><img src="images/resource/author-4.jpg" alt="" /></div>
+                    <div class="author-image"><img src="assets/images/resource/author-4.jpg" alt="" /></div>
                     {/* <div class="category">Gluten Free Recipes</div> */}
                     <h4><Link to={`/myrecipies/recipe/${props.recipe['id']}`}>{props.recipe["recipe_name"]}</Link></h4>
                     <div class="text">{(props.recipe["recipe_process"]).toString().slice(0,100)}...</div>
