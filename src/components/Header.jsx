@@ -9,23 +9,6 @@ export default function Header() {
     let params = useParams()
     // console.log(username["username"])
     useEffect(() => {
-        function headerStyle() {
-            if($('.main-header').length){
-                var windowpos = $(window).scrollTop();
-                var siteHeader = $('.main-header');
-                var scrollLink = $('.scroll-to-top');
-                var sticky_header = $('.main-header .sticky-header');
-                if (windowpos > 100) {
-                    siteHeader.addClass('fixed-header');
-                    sticky_header.addClass("animated slideInDown");
-                    scrollLink.fadeIn(300);
-                } else {
-                    siteHeader.removeClass('fixed-header');
-                    sticky_header.removeClass("animated slideInDown");
-                    scrollLink.fadeOut(300);
-                }
-            }
-        }
         //Hidden Sidebar
         if ($('.hidden-bar').length) {
             var hiddenBar = $('.sidebar-btn');
@@ -89,11 +72,6 @@ export default function Header() {
                 $('body').removeClass('mobile-menu-visible');
             });
         }
-	
-        $(window).on('scroll', function() {
-            headerStyle();
-        });
-        headerStyle();
     },[params])
     return (
         <>

@@ -2047,7 +2047,7 @@ img{
 	color:#ffffff;
 	cursor:pointer;
 	font-size:16px;
-	border-radius:0px 50px 50px 0px;
+	/* border-radius:0px 50px 50px 0px; */
 	display:inline-block;
 	background-color:#ff7d5f;
 }
