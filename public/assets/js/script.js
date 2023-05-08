@@ -465,7 +465,14 @@
 		);
 		wow.init();
 	}
-
+	console.log($(".flaticon-media-play-symbol"))
+	console.log($("#recipe_video"))
+	$("#play_video").click(function(){
+		//as noted in addendum, check for querystring exitence
+		var symbol = $("#recipe_video")[0].src.indexOf("?") > -1 ? "&" : "?";
+		//modify source to autoplay and start video
+		$("#recipe_video")[0].src += symbol + "autoplay=1";
+	});
 
 /* ==========================================================================
    When document is Scrollig, do

@@ -1,9 +1,42 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
+import 'owl.carousel/dist/assets/owl.carousel.css';
+import 'owl.carousel';
+import $ from 'jquery'
 export default function Home() {
     let [hometext,setText] = useState("");
     useEffect(()=>{
+            // your standard jquery code goes here with $ prefix
+            // best used inside a page with inline code, 
+            // or outside the document ready, enter code here
+        // if ($('.banner-carousel').length) {
+        //     $('.banner-carousel').owlCarousel({
+        //         loop:true,
+        //         margin:0,
+        //         nav:true,
+        //         smartSpeed: 500,
+        //         autoplay: 6000,
+        //         navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
+        //         responsive:{
+        //             0:{
+        //                 items:1
+        //             },
+        //             600:{
+        //                 items:1
+        //             },
+        //             800:{
+        //                 items:1
+        //             },
+        //             1024:{
+        //                 items:1
+        //             }
+        //         }
+        //     });
+        // }
         setHomeText();
+        
+        // $(document).load('index.html',()=>{
+        // })
     },[])
     async function setHomeText(){
         let response = await fetch(`${process.env.REACT_APP_API}/api/`);

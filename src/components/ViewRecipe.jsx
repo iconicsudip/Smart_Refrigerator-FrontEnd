@@ -2,12 +2,22 @@ import React, { useEffect ,useContext,useState} from 'react'
 import { useParams } from 'react-router-dom'
 import AuthContext from '../context/AuthContext';
 import {Link} from 'react-router-dom'
+import $ from 'jquery'
 
 export default function ViewRecipe() {
     let {authToken} = useContext(AuthContext);
     const params = useParams();
     const [getRecipe,setGetRecipe] = useState(null);
     const [loading,setLoading] =useState(false);
+    useEffect(()=>{
+        $("#play_video").click(function(){
+            //as noted in addendum, check for querystring exitence
+            $("#video_overlay").css('display','none')
+            var symbol = $("#recipe_video")[0].src.indexOf("?") > -1 ? "&" : "?";
+            //modify source to autoplay and start video
+            $("#recipe_video")[0].src += symbol + "autoplay=1";
+        });
+    },[getRecipe])
 
     useEffect(()=>{
         const fetchAPI = async ()=>{
@@ -25,6 +35,11 @@ export default function ViewRecipe() {
         }
         fetchAPI()
     },[])
+    const isNum = (num) =>{
+        if (typeof num === "string") {
+            return !isNaN(num);
+        }
+    }
     return (
         <>
         <section className="page-title" style={{backgroundImage:"url(../../assets/images/background/10.jpg"}}>
@@ -135,7 +150,7 @@ export default function ViewRecipe() {
                                                                             <h4>Directions</h4>
                                                                             <ul className="direction-list">
                                                                                 {getRecipe?.recipe_process.map((rep,inx)=>{
-                                                                                    return <li><span>{inx>=0 && inx<=9?`0${inx+1}`:inx+1}</span><br/>{rep}</li>
+                                                                                    return <li><span>{inx>=0 && inx<=9?`0${inx+1}`:inx+1}</span><br/>{isNum(rep)?"Timer: "+rep+" minutes": rep}</li>
                                                                                 })}
                                                                             </ul>
                                                                         </div>
@@ -147,13 +162,18 @@ export default function ViewRecipe() {
                                                             
                                                             <div className="video-boxed">
                                                                 
-                                                                
-                                                                <div className="video-box-two">
-                                                                    <div className="image">
-                                                                        <iframe src="https://youtu.be/sv3TXMSv6Lw" frameborder="0"></iframe>
-                                                                        <Link to ="https://youtu.be/sv3TXMSv6Lw" className="lightbox-image overlay-box"><span className="flaticon-media-play-symbol"><i className="ripple"></i></span></Link>
+                                                                {getRecipe?.videourl !== ""?
+                                                                    <div className="video-box-two">
+                                                                        <div className="image">
+                                                                            <iframe id="recipe_video" src="https://www.youtube.com/embed/tgbNymZ7vqY"  style={{width:"100%",height:"600px"}}></iframe>
+                                                                            <div id="video_overlay" className="lightbox-image overlay-box"><span className="flaticon-media-play-symbol" id="play_video" style={{cursor:"pointer"}}><i className="ripple"></i></span></div>
+                                                                        </div>
                                                                     </div>
-                                                                </div>
+                                                                    :
+                                                                    <div className="text text-center">
+                                                                        No video is available for this recipe
+                                                                    </div>
+                                                                }
                                                             </div>
                                                             
                                                             {/* <div className="post-share-options">
