@@ -157,7 +157,7 @@ export default function Home() {
             </div>
             <div className="outer-container">
                 <div className="row clearfix">
-                {hometext['data']?hometext['data'].map((item)=>{
+                {getcarousel.map((item)=>{
                         return (
                             <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                                 <div className="inner-box">
@@ -177,7 +177,7 @@ export default function Home() {
                                 </div>
                             </div>
                         )
-                    }):null}
+                    })}
                     
                 </div>
             </div>
