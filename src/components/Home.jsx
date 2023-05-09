@@ -78,7 +78,7 @@ export default function Home() {
                 </div> */}
                     {getcarousel.map((item)=>{
                         return (
-                            <Link to={`/myrecipies/recipe/${item.id}`}>
+                            <Link key={item.id} to={`/myrecipies/recipe/${item.id}`}>
                                 <div className="slide-item item">
                                     <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
