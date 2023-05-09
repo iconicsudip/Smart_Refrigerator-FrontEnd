@@ -87,6 +87,7 @@ export default function Singlerecipe(props) {
                     <div class="text">{(props.recipe["recipe_process"]).toString().slice(0,100)}...</div>
                     <div className="recipe-footer-options d-flex justify-content-between">
                         <ul class="post-meta">
+                            <li><span className="icon flaticon-dish"></span>{props.recipe["ingredient"].length} Ingredients</li>
                             <li><span class="icon flaticon-business-and-finance"></span>{props.recipe["votes"]} Votes</li>
                         </ul>
                         <div className="options d-flex" style={{marginTop:"10px",gap:"0.5rem"}}>

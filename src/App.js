@@ -11,6 +11,7 @@ import {AuthProvider} from './context/AuthContext';
 import Myrecipies from './components/Myrecipies';
 import ViewRecipe from './components/ViewRecipe';
 import 'bootstrap/dist/js/bootstrap.min.js'
+import Footer from './components/Footer';
 function App() {
   useEffect(()=>{
     localStorage.removeItem('steps')
@@ -27,7 +28,8 @@ function App() {
                 <Route exact path="/signup" element={<SignUp />} />
                 <Route exact path="/signin" element={<SignIn />} />
                 <Route exact path="/myrecipies/recipe/:recipe_id" element={<ViewRecipe/>} />
-            </Routes>    
+            </Routes>
+            <Footer />
           </AuthProvider>
         </Router>
     </>

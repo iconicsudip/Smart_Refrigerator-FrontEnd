@@ -9,7 +9,8 @@ import AuthContext from '../context/AuthContext';
 import ListItem from '@mui/material/ListItem';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import { useState,useContext} from 'react';
+import { useState,useContext,useEffect} from 'react';
+import {Link} from 'react-router-dom'
 export default function Dashboard() {
   const [open, setOpen] = useState(false);
   const [Alert,setAlert] = useState('');
@@ -17,11 +18,40 @@ export default function Dashboard() {
   const [searchresult,setSearchResult] = useState(null);
   const [loader,setLoader] = useState(true);
   const {authToken} = useContext(AuthContext);
+  const [recipeResult,setRecipeResult] = useState(null)
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     localStorage.removeItem('steps');
   }
+  const getRecipies = async (item)=>{
+    setLoader(true)
+    await fetch(`${process.env.REACT_APP_API}/api/getrecipies/${item}`,{
+        method:'GET',
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'Bearer '+ String(authToken.access),
+        },
+    }).then(response=>response.json()).then(json=>{
+        if(json["notfound"]){
+          setRecipeResult(json["notfound"])
+        }else{
+          setRecipeResult(json["results"]);
+        }
+        setLoader(false);
+    })
+  }
+  useEffect(()=>{
+    getRecipies("all")
+  },[])
+  useEffect(()=>{
+    if(search === ""){
+      getRecipies("all")
+    }else{
+      setSearchResult(null)
+      getRecipies(search)
+    }
+  },[search])
   const handleChange = React.useCallback((newValue) => {
     setOpen(newValue);
   }, []);
@@ -40,7 +70,7 @@ export default function Dashboard() {
     }else{
       setSearch(final_item);
     }
-    // setSearchResult(null)
+    
     setLoader(true)
     if(final_item!==""){
       
@@ -128,17 +158,51 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
-      <div className='text-center mt-5'>
-        {Alert}
-        <Button className='add-item' onClick={handleOpen} variant="contained">Add Recipe</Button>
-        <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-          <Box >
-            <Typography id="modal-modal-title" variant="h6" component="h2">
-              <AddItem setOpen={setOpen} setAlert={setAlert} open={open} Open={handleChange}/>
-            </Typography>
-          </Box>
-        </Modal>
-      </div>
+      <section className="popular-recipes-section style-three">
+        <div className='text-center mb-5'>
+          {Alert}
+          <Button className='add-item' onClick={handleOpen} variant="contained">Add Recipe</Button>
+          <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+            <Box >
+              <Typography id="modal-modal-title" variant="h6" component="h2">
+                <AddItem setOpen={setOpen} setAlert={setAlert} open={open} Open={handleChange}/>
+              </Typography>
+            </Box>
+          </Modal>
+        </div>
+        <div className="outer-container">
+          <div className="row clearfix ">
+            {loader?
+              <div className="loader d-flex justify-content-center w-100">
+                  <img src="./loading.gif" width={40} alt="" />
+              </div>:null}
+            {Array.isArray(recipeResult)?recipeResult.map((item)=>{
+                return (
+                    <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
+                        <div className="inner-box">
+                            <div className="image">
+                                <Link to={`/myrecipies/recipe/${item.id}`}><img src="assets/images/resource/recipe-8.jpg" alt="" /></Link>
+                            </div>
+                            <div className="lower-content">
+                                <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>
+                                <div className="category">by {item.author_name}</div>
+                                <h4><Link to={`/myrecipies/recipe/${item.id}`}>{item.recipe_name}</Link></h4>
+                                <div className="text">{(item.recipe_process).toString().slice(0,100)}...</div>
+                                <ul className="post-meta">
+                                    <li><span className="icon flaticon-dish"></span>{item.ingredient.length} ingredients</li>
+                                    <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }):
+            <h3 className='text-center w-100'>{recipeResult}</h3>
+            }
+              
+          </div>
+        </div>
+      </section>
     </>
   )
 }

@@ -68,7 +68,7 @@ export default function ViewRecipe() {
                                             </div>
                                             {/* <div className="category">recipes Pizza</div> */}
                                             <h2> {getRecipe?.recipe_name}</h2>
-                                            <div className="post">November 24, 2018 <span>By : Mahfuz Riad</span></div>
+                                            <div className="post">November 24, 2018 <span>By : {getRecipe?.author_name}</span></div>
                                             <div className="rating">
                                                 <span className="fa fa-star"></span>
                                                 <span className="fa fa-star"></span>
@@ -78,6 +78,7 @@ export default function ViewRecipe() {
                                                 &nbsp; 12 Review
                                             </div>
                                             <ul className="post-meta">
+                                                <li><span className="icon flaticon-dish"></span>{getRecipe?.ingredient.length} Ingredients</li>
                                                 <li><span className="icon flaticon-business-and-finance"></span>{getRecipe?.votes} Votes</li>
                                             </ul>
                                         </div>
