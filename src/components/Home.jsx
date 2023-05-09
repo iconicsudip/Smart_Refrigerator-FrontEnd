@@ -1,8 +1,8 @@
 import React,{useState,useEffect} from 'react'
 import {Link} from 'react-router-dom'
 import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel';
-import $ from 'jquery'
+import 'owl.carousel/dist/assets/owl.theme.default.css';
+import OwlCarousel from 'react-owl-carousel';
 export default function Home() {
     let [hometext,setText] = useState("");
     useEffect(()=>{
@@ -41,128 +41,44 @@ export default function Home() {
     async function setHomeText(){
         let response = await fetch(`${process.env.REACT_APP_API}/api/`);
         let data = await response.json();
-        console.log(data);
-        setText(data['API']);
+        console.log(data['data'],data['home'])
+        setText(data);
     }
     return (
         <>
         
         <section className="banner-section-two">
-            <div className="banner-carousel owl-theme owl-carousel">
-                <div className="slide-item">
-                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
+            <OwlCarousel className='banner-carousel owl-theme owl-carousel' loop margin={10} items={1} autoplay={true} dots={false} nav>
+                    {hometext['data']?hometext['data'].map((item)=>{
+                        return (
+                            <div className="slide-item item">
+                                <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
-                    <div className="auto-container">
-                        <div className="content-box">
-                            <div className="image">
-                                <img src="assets/images/resource/image-1.png" alt="" />
-                            </div>
-                            
-                            <div className="author-name">
-                                <div className="author-inner">
-                                    <div className="author-icon">
-                                        <img src="assets/images/resource/author-1.jpg" alt="" />
-                                    </div>
-                                    by Mahfuz Riad
+                                <div className="auto-container">
+                                    <div className="content-box">
+                                        <div className="image">
+                                            <img src="assets/images/resource/image-1.png" alt="" />
+                                        </div>
+                                        
+                                        <div className="author-name">
+                                            <div className="author-inner">
+                                                <div className="author-icon">
+                                                    <img src="assets/images/resource/author-1.jpg" alt="" />
+                                                </div>
+                                                by {item.author_name}
+                                            </div>
+                                        </div>
+                                        <h1>{item.recipe_name}</h1>
+                                        <ul className="post-meta">
+                                            <li><span className="icon flaticon-dish"></span>{item.ingredient.length} Ingredients</li>
+                                            <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
+                                        </ul>
+                                    </div>  
                                 </div>
                             </div>
-                            <h1>Roasted beet salad with arugula, <br/> feta, and garlic vinaigrette</h1>
-                            <div className="info-list clearfix">
-                                <div className="rating">
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star-half-o"></span>&ensp;
-                                    8 Review
-                                </div>
-                            </div>
-                            <ul className="post-meta">
-                                <li><span className="icon flaticon-dish"></span>4 ingredients</li>
-                                <li><span className="icon flaticon-clock-3"></span>6 Min</li>
-                                <li><span className="icon flaticon-business-and-finance"></span>4 People</li>
-                            </ul>
-                        </div>  
-                    </div>
-                </div>
-
-            
-                <div className="slide-item">
-                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
-
-                    <div className="auto-container">
-                        <div className="content-box">
-                            <div className="image">
-                                <img src="assets/images/resource/image-1.png" alt="" />
-                            </div>
-                            
-                            <div className="author-name">
-                                <div className="author-inner">
-                                    <div className="author-icon">
-                                        <img src="assets/images/resource/author-1.jpg" alt="" />
-                                    </div>
-                                    by Mahfuz Riad
-                                </div>
-                            </div>
-                            <h1>Roasted beet salad with arugula, <br/> feta, and garlic vinaigrette</h1>
-                            <div className="info-list clearfix">
-                                <div className="rating">
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star-half-o"></span>&ensp;
-                                    8 Review
-                                </div>
-                            </div>
-                            <ul className="post-meta">
-                                <li><span className="icon flaticon-dish"></span>4 ingredients</li>
-                                <li><span className="icon flaticon-clock-3"></span>6 Min</li>
-                                <li><span className="icon flaticon-business-and-finance"></span>4 People</li>
-                            </ul>
-                        </div>  
-                    </div>
-                </div>
-                
-                
-                <div className="slide-item">
-                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
-
-                    <div className="auto-container">
-                        <div className="content-box">
-                            <div className="image">
-                                <img src="assets/images/resource/image-1.png" alt="" />
-                            </div>
-                            
-                            <div className="author-name">
-                                <div className="author-inner">
-                                    <div className="author-icon">
-                                        <img src="assets/images/resource/author-1.jpg" alt="" />
-                                    </div>
-                                    by Mahfuz Riad
-                                </div>
-                            </div>
-                            <h1>Roasted beet salad with arugula, <br/> feta, and garlic vinaigrette</h1>
-                            <div className="info-list clearfix">
-                                <div className="rating">
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star"></span>
-                                    <span className="fa fa-star-half-o"></span>&ensp;
-                                    8 Review
-                                </div>
-                            </div>
-                            <ul className="post-meta">
-                                <li><span className="icon flaticon-dish"></span>4 ingredients</li>
-                                <li><span className="icon flaticon-clock-3"></span>6 Min</li>
-                                <li><span className="icon flaticon-business-and-finance"></span>4 People</li>
-                            </ul>
-                        </div>  
-                    </div>
-                </div>
-                
-            </div>
+                        )
+                    }):null}
+            </OwlCarousel>
         </section>
         <section className="trending-section style-two">
 		<div className="auto-container">
@@ -184,8 +100,8 @@ export default function Home() {
 					<div className="inner-column">
 						
 						<div className="sec-title">
-							<div className="title">TRENDING</div>
-							<h2>Standing Rib Roast</h2>
+							{/* <div className="title">TRENDING</div> */}
+							<h2>{hometext['home']}</h2>
 							<div className="text">Preheat oven to 325°. In a small bowl, mix the first 5 ingredients. Place roast in a roasting pan, fat side up; rub with seasoning mixture.Roast 2-1/4 to 2-3/4 hours or until meat reaches desired doneness (for medium-rare, a thermometer should read 135°; medium, 140°; medium-well, 145°). Remove roast from oven; tent with foil. Let stand 15 minutes before carving.</div>
 						</div>
 						<div className="bold-text">To separate the fat from the drippings with ease, try this tool from OXO ($14).</div>
@@ -205,76 +121,34 @@ export default function Home() {
                             <div className="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed tincidunt ut</div>
                         </div>
                         <div className="pull-right">
-                            <Link to="recipes.html" className="theme-btn btn-style-one"><span className="txt">See all Post</span></Link>
+                            <Link to="/dashboard" className="theme-btn btn-style-one"><span className="txt">See all Recipies</span></Link>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="outer-container">
                 <div className="row clearfix">
-                    
-                    
-                    <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
-                        <div className="inner-box">
-                            <div className="image">
-                                <Link to="recipes-detail.html"><img src="assets/images/resource/recipe-8.jpg" alt="" /></Link>
+                {hometext['data']?hometext['data'].map((item)=>{
+                        return (
+                            <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
+                                <div className="inner-box">
+                                    <div className="image">
+                                        <Link to={`/myrecipies/recipe/${item.id}`}><img src="assets/images/resource/recipe-8.jpg" alt="" /></Link>
+                                    </div>
+                                    <div className="lower-content">
+                                        <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>
+                                        <div className="category">by {item.author_name}</div>
+                                        <h4><Link to={`/myrecipies/recipe/${item.id}`}>{item.recipe_name}</Link></h4>
+                                        <div className="text">{(item.recipe_process).toString().slice(0,100)}...</div>
+                                        <ul className="post-meta">
+                                            <li><span className="icon flaticon-dish"></span>{item.ingredient.length} ingredients</li>
+                                            <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="lower-content">
-                                <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>
-                                {/* <div className="category">CHICKEN</div> */}
-                                <h4><Link to="recipes-detail.html">Pressure-Cooker Beef Short Ribs with Chutney</Link></h4>
-                                <div className="text">Discover a sleighload of tasty snacks that are just right for holiday feasting.</div>
-                                <ul className="post-meta">
-                                    {/* <li><span className="icon flaticon-dish"></span>4 ingredients</li> */}
-                                    {/* <li><span className="icon flaticon-clock-3"></span>6 Min</li> */}
-                                    <li><span className="icon flaticon-business-and-finance"></span>4 Votes</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-                    <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
-                        <div className="inner-box">
-                            <div className="image">
-                                <Link to="recipes-detail.html"><img src="assets/images/resource/recipe-9.jpg" alt="" /></Link>
-                            </div>
-                            <div className="lower-content">
-                                <div className="author-image"><img src="assets/images/resource/author-4.jpg" alt="" /></div>
-                                {/* <div className="category">Gluten Free Recipes</div> */}
-                                <h4><Link to="recipes-detail.html">Pressure-Cooker Beef Short Ribs with Chutney</Link></h4>
-                                <div className="text">Discover a sleighload of tasty snacks that are just right for holiday feasting.</div>
-                                <ul className="post-meta">
-                                    {/* <li><span className="icon flaticon-dish"></span>4 ingredients</li> */}
-                                    {/* <li><span className="icon flaticon-clock-3"></span>6 Min</li> */}
-                                    <li><span className="icon flaticon-business-and-finance"></span>4 Votes</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-                    <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
-                        <div className="inner-box">
-                            <div className="image">
-                                <Link to="recipes-detail.html"><img src="assets/images/resource/recipe-10.jpg" alt="" /></Link>
-                            </div>
-                            <div className="lower-content">
-                                <div className="author-image"><img src="assets/images/resource/author-6.jpg" alt="" /></div>
-                                {/* <div className="category">Cooking Style</div> */}
-                                <h4><Link to="recipes-detail.html">Pressure-Cooker Beef Short Ribs with Chutney</Link></h4>
-                                <div className="text">Discover a sleighload of tasty snacks that are just right for holiday feasting.</div>
-                                <ul className="post-meta">
-                                    {/* <li><span className="icon flaticon-dish"></span>4 ingredients</li> */}
-                                    {/* <li><span className="icon flaticon-clock-3"></span>6 Min</li> */}
-                                    <li><span className="icon flaticon-business-and-finance"></span>4 Votes</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
-                    
+                        )
+                    }):null}
                     
                 </div>
             </div>

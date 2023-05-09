@@ -104,7 +104,7 @@ export default function Header() {
                                                         <Link to="/dashboard">Dashboard</Link>
                                                     </li>
                                                     <li>
-                                                        <Link to="/myrecipies">My Recipies</Link>
+                                                        <Link to="/myrecipies">My Recipes</Link>
                                                     </li>
                                                 </>
                                             ) : null}
