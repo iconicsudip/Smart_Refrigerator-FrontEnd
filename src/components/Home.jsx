@@ -4,7 +4,8 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import OwlCarousel from 'react-owl-carousel';
 export default function Home() {
-    let [hometext,setText] = useState({"data":[],"home":""});
+    let [hometext,setText] = useState("");
+    let [getcarousel,setCarousel] = useState([])
     useEffect(()=>{
             // your standard jquery code goes here with $ prefix
             // best used inside a page with inline code, 
@@ -42,7 +43,8 @@ export default function Home() {
         let response = await fetch(`${process.env.REACT_APP_API}/api/`);
         let data = await response.json();
         // console.log(data['data'],data['home'])
-        setText(data);
+        setText(data["home"]);
+        setCarousel(data["data"])
     }
     return (
         <>
@@ -74,7 +76,7 @@ export default function Home() {
                         </div>  
                     </div>
                 </div> */}
-                    {hometext['data']?hometext['data'].map((item)=>{
+                    {getcarousel.map((item)=>{
                         return (
                             <Link to={`/myrecipies/recipe/${item.id}`}>
                                 <div className="slide-item item">
@@ -104,7 +106,7 @@ export default function Home() {
                                 </div>
                             </Link>
                         )
-                    }):null}
+                    })}
             </OwlCarousel>
         </section>
         <section className="trending-section style-two">
@@ -128,7 +130,7 @@ export default function Home() {
 						
 						<div className="sec-title">
 							{/* <div className="title">TRENDING</div> */}
-							<h2>{hometext['home']}</h2>
+							<h2>{hometext}</h2>
 							<div className="text">Preheat oven to 325°. In a small bowl, mix the first 5 ingredients. Place roast in a roasting pan, fat side up; rub with seasoning mixture.Roast 2-1/4 to 2-3/4 hours or until meat reaches desired doneness (for medium-rare, a thermometer should read 135°; medium, 140°; medium-well, 145°). Remove roast from oven; tent with foil. Let stand 15 minutes before carving.</div>
 						</div>
 						<div className="bold-text">To separate the fat from the drippings with ease, try this tool from OXO ($14).</div>
