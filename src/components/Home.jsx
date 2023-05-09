@@ -4,7 +4,7 @@ import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import OwlCarousel from 'react-owl-carousel';
 export default function Home() {
-    let [hometext,setText] = useState("");
+    let [hometext,setText] = useState({"data":[],"home":""});
     useEffect(()=>{
             // your standard jquery code goes here with $ prefix
             // best used inside a page with inline code, 
@@ -49,7 +49,7 @@ export default function Home() {
         
         <section className="banner-section-two">
             <OwlCarousel className='banner-carousel owl-theme owl-carousel' loop margin={10} items={1} autoplay={true} dots={false} nav>
-                <div className="slide-item item">
+                {/* <div className="slide-item item">
                     <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
                     <div className="auto-container">
@@ -73,7 +73,7 @@ export default function Home() {
                             </ul>
                         </div>  
                     </div>
-                </div>
+                </div> */}
                     {hometext['data']?hometext['data'].map((item)=>{
                         return (
                             <Link to={`/myrecipies/recipe/${item.id}`}>
