@@ -41,7 +41,7 @@ export default function Home() {
     async function setHomeText(){
         let response = await fetch(`${process.env.REACT_APP_API}/api/`);
         let data = await response.json();
-        console.log(data['data'],data['home'])
+        // console.log(data['data'],data['home'])
         setText(data);
     }
     return (
@@ -51,31 +51,33 @@ export default function Home() {
             <OwlCarousel className='banner-carousel owl-theme owl-carousel' loop margin={10} items={1} autoplay={true} dots={false} nav>
                     {hometext['data']?hometext['data'].map((item)=>{
                         return (
-                            <div className="slide-item item">
-                                <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
+                            <Link to={`/myrecipies/recipe/${item.id}`}>
+                                <div className="slide-item item">
+                                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
-                                <div className="auto-container">
-                                    <div className="content-box">
-                                        <div className="image">
-                                            <img src="assets/images/resource/image-1.png" alt="" />
-                                        </div>
-                                        
-                                        <div className="author-name">
-                                            <div className="author-inner">
-                                                <div className="author-icon">
-                                                    <img src="assets/images/resource/author-1.jpg" alt="" />
-                                                </div>
-                                                by {item.author_name}
+                                    <div className="auto-container">
+                                        <div className="content-box">
+                                            <div className="image">
+                                                <img src="assets/images/resource/image-1.png" alt="" />
                                             </div>
-                                        </div>
-                                        <h1>{item.recipe_name}</h1>
-                                        <ul className="post-meta">
-                                            <li><span className="icon flaticon-dish"></span>{item.ingredient.length} Ingredients</li>
-                                            <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
-                                        </ul>
-                                    </div>  
+                                            
+                                            <div className="author-name">
+                                                <div className="author-inner">
+                                                    <div className="author-icon">
+                                                        <img src="assets/images/resource/author-1.jpg" alt="" />
+                                                    </div>
+                                                    by {item.author_name}
+                                                </div>
+                                            </div>
+                                            <h1>{item.recipe_name}</h1>
+                                            <ul className="post-meta">
+                                                <li><span className="icon flaticon-dish"></span>{item.ingredient.length} Ingredients</li>
+                                                <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
+                                            </ul>
+                                        </div>  
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         )
                     }):null}
             </OwlCarousel>
