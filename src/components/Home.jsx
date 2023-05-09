@@ -66,7 +66,7 @@ export default function Home() {
                                     by Author name
                                 </div>
                             </div>
-                            <h1>{item.recipe_name}</h1>
+                            <h1>Recipename</h1>
                             <ul className="post-meta">
                                 <li><span className="icon flaticon-dish"></span>12 Ingredients</li>
                                 <li><span className="icon flaticon-business-and-finance"></span>4 Votes</li>
