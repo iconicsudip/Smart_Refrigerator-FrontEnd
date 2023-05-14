@@ -99,18 +99,18 @@ export default function AddItem(props) {
         <>
         <div className='add-recipe'>
             {/* <form className='add-item-form' onSubmit={()=>addRecipe()} > */}
-            <form className='add-item-form'>
+            <form className='add-item-form add-recipe-col'>
                 <div className="progress-bar shadow bg-secondary rounded-3">
-                    <div className="div text-center" style={{width:progress+"%",backgroundColor: page === 4 ? "green" : "purple",}}></div>
+                    <div className="div text-center" style={{width:progress+"%",backgroundColor: page === 4 ? "green" : "#ff7d5f",}}></div>
                 </div>
                 <h3 className={`"display-2" ${page === 4 ? "text-success" : "text-purple"} text-center`}>{FormData[page]}</h3>
                 <div className="recipe-form">
                     {PageDisplay()}
                     {/*  */}
                 </div>
-                <div className="buttons">
-                    <Button fullWidth onClick={backClick} className='add-item' variant="outlined">{page !== 0 ? "Back" : "Cancel"}</Button>
-                    <Button fullWidth className='add-item' color='secondary' type='submit' variant="contained" onClick={nextClick}>{page !== 4 ? "Next" : "Finish & Add"}</Button>
+                <div className="d-flex justify-content-end m-1" style={{gap:"1rem"}}>
+                    <button className="btn btn-primary theme-btn btn-style-one" onClick={backClick} type="submit"><span>{page !== 0 ? "Back" : "Cancel"}</span></button>
+                    <button className="btn btn-primary theme-btn btn-style-two" onClick={nextClick} type="submit"><span>{page !== 4 ? "Next" : "Finish & Add"}</span></button>
                 </div>
             </form>
         </div>

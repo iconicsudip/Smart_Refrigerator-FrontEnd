@@ -4,7 +4,7 @@ export default function Vegetables({checkList,handleCheck,formData}) {
   return (
     <div className="container text-center">
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-            <div className="col vegetables">
+            <div className="col-12 col-md-6 vegetables">
                 {checkList.map((item, index) => (
                     <div className='vegetable' key={index}>
                         <input value={item} name={item} type="checkbox" onChange={handleCheck} />
@@ -13,7 +13,7 @@ export default function Vegetables({checkList,handleCheck,formData}) {
                 ))}
             </div>
             
-            <div className="col checked-vegetables">
+            <div className="col-12 col-md-6 checked-vegetables">
                 <div className="tex-center">
                     <span style={{fontSize:"16px"}}>Items checked</span> 
                 </div>

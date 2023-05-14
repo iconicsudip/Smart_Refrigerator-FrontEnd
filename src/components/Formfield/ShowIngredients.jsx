@@ -13,9 +13,9 @@ export default function ShowIngredients({formData, setFormData,item,index}) {
     }
     return (
         <ListItem disablePadding>
-            <ListItemButton className='justify-content-between'>
-                <li key={item} >{item}</li>
-                <Button value={index} onClick={Delete} size="small" type='submit' variant="contained" color="error">Delete</Button>
+            <ListItemButton className='justify-content-between add-recipe-col'>
+                <li key={item} ><span>{item}</span></li>
+                <Button value={index} onClick={Delete} size="small" type='submit' variant="contained" color="error" style={{borderRadius:"50px"}}>Delete</Button>
             </ListItemButton>
         </ListItem>
     )
