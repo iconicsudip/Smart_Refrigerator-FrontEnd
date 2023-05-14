@@ -22,8 +22,10 @@ export default function AddRecipe({ formData, setFormData }) {
         setFormData({...formData,vegetables:updatedList})
     };
     return (
-        <div>
-            <TextField fullWidth id="filled-basic" value={formData.recipe_name} onChange={(e) => setFormData({ ...formData, recipe_name: e.target.value })} label="Recipe Name" variant="filled" required/>
+        <div className='add-recipe-col'>
+            <label>Recipe Name</label>
+            <input type="text" className="form-control" value={formData.recipe_name} onChange={(e) => setFormData({ ...formData, recipe_name: e.target.value })} placeholder="Example: Hamburger Steak with Onions" required=""></input>
+            <label>Vegetables</label>
             <Vegetables formData={formData} checkList={checkList} handleCheck={handleCheck}/>
             
         </div>

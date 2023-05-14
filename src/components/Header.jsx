@@ -1,11 +1,25 @@
-import React,{useContext, useEffect} from 'react';
+import React,{useContext, useEffect,useState} from 'react';
 import {Link,useParams} from "react-router-dom";
 import AuthContext from '../context/AuthContext';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import AddItem from './AddItem';
 import {Button} from '@mui/material'
 import $ from 'jquery'; 
 export default function Header() {
     let {username,logoutUser} = useContext(AuthContext);
+    const [open, setOpen] = useState(false);
+    const [Alert,setAlert] = useState('');
+    const handleChange = React.useCallback((newValue) => {
+        setOpen(newValue);
+    }, []);
 
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => {
+        setOpen(false);
+        localStorage.removeItem('steps');
+    }
     let params = useParams()
     // console.log(username["username"])
     useEffect(() => {
@@ -124,7 +138,7 @@ export default function Header() {
                                         <li>
                                             <Link to="" onClick={logoutUser}>Log out {username.username}</Link>                                            
                                         </li>
-                                        <li className="recipe"><Link to="add-recipe.html"><span className="fa fa-plus-circle"></span>&nbsp; Add Recipe</Link></li>
+                                        <li className="recipe"><Link to="#" onClick={handleOpen}><span className="fa fa-plus-circle"></span>&nbsp; Add Recipe</Link></li>
                                         </>
                                         :
                                         <li><Link to="/signin"><span className="icon fa fa-user"></span>Login</Link></li>
@@ -147,7 +161,15 @@ export default function Header() {
                     </nav>
                 </div>
                 {/* {username ?  (username.username) : null} */}
+                {Alert}
             </header>
+            <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <Box >
+                    <Typography id="modal-modal-title" variant="h6" component="h2">
+                        <AddItem setOpen={setOpen} setAlert={setAlert} open={open} Open={handleChange}/>
+                    </Typography>
+                </Box>
+            </Modal>
         </>
     )
 }

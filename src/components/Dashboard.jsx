@@ -11,6 +11,7 @@ import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import { useState,useContext,useEffect} from 'react';
 import {Link} from 'react-router-dom'
+import RefriBot from './RefriBot';
 export default function Dashboard() {
   const [open, setOpen] = useState(false);
   const [Alert,setAlert] = useState('');
@@ -109,6 +110,7 @@ export default function Dashboard() {
   }
   return (
     <>
+      <RefriBot />
       <section className="page-title" style={{backgroundImage:"url(assets/images/background/10.jpg"}}>
           <div className="auto-container">
               <h1>Dashboard</h1>
@@ -159,16 +161,15 @@ export default function Dashboard() {
         </div>
       </section>
       <section className="popular-recipes-section style-three">
-        <div className='text-center mb-5'>
-          {Alert}
-          <Button className='add-item' onClick={handleOpen} variant="contained">Add Recipe</Button>
-          <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
-            <Box >
-              <Typography id="modal-modal-title" variant="h6" component="h2">
-                <AddItem setOpen={setOpen} setAlert={setAlert} open={open} Open={handleChange}/>
-              </Typography>
-            </Box>
-          </Modal>
+        <div className="auto-container">
+            <div className="sec-title">
+                <div className="clearfix">
+                    <div className="pull-left">
+                        <h2>All recipes</h2>
+                        <div className="text">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed tincidunt ut</div>
+                    </div>
+                </div>
+            </div>
         </div>
         <div className="outer-container">
           <div className="row clearfix ">

@@ -266,7 +266,7 @@ img{
 	font-size: 15px;
 	line-height: 30px;
 	color: #ffffff;
-	padding: 12px 35px;
+	padding: 10px 38px;
 	font-weight: 400;
 	overflow: hidden;
 	overflow:hidden;
@@ -1353,7 +1353,7 @@ img{
 	left: 0px;
     right: 0px;
     top: 0px;
-    z-index: 9999;
+    z-index: 10;
     width: 100%;
 	border-bottom:0px;
     transition: all 500ms ease;
@@ -5213,10 +5213,10 @@ img{
 .add-recipe-col {
 	max-width: 960px;
 	margin: 0 auto;
-	padding: 50px 30px;
+	/* padding: 50px 30px;
 	-webkit-box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3);
 	-moz-box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3);
-	box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3);
+	box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3); */
 }
 .add-recipe-col h4 {
 	color: #161616;

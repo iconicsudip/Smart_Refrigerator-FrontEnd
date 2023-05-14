@@ -18,7 +18,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 export default function Singlerecipe(props) {
     let {authToken} = useContext(AuthContext);
     const [open, setOpen] = useState(false);
-    const [edit,setEdit] = useState(0);
+    const [edit,setEdit] = useState(1);
     const [deleteconfirm,setDeleteConfirm] = useState(false);
     const [loader,setLoader] = useState(false);
     const [recipename,setRecipename] = useState(props.recipe["recipe_name"])
@@ -27,18 +27,16 @@ export default function Singlerecipe(props) {
     const handleClickOpen = (e) => {
         setOpen(true);
         //props.recipe["id"]
-        if(e.target.value==='delete'){
+        if(e==='delete'){
             setDeleteConfirm(true)
-        }else if(e.target.value==='1'){
+        }else if(e==='1'){
             setEdit(1)
-        }else{
-            setEdit(0)
         }
     };
     const handleClose = () => {
         setOpen(false);
         setRecipename(temp_recipe_name)
-        setEdit(0)
+        setEdit(1)
         setDeleteConfirm(false)
     };
     const setRecipeName=(e)=>{
@@ -91,8 +89,8 @@ export default function Singlerecipe(props) {
                             <li><span class="icon flaticon-business-and-finance"></span>{props.recipe["votes"]} Votes</li>
                         </ul>
                         <div className="options d-flex" style={{marginTop:"10px",gap:"0.5rem"}}>
-                            <div style={{cursor:"pointer"}} className='cursor-pointer' value={1} onClick={handleClickOpen}><EditIcon style={{fontSize:"1.2rem",color:"black"}}/></div>
-                            <div style={{cursor:"pointer"}} className='cursor-pointer' value={"delete"} onClick={handleClickOpen}><DeleteIcon style={{fontSize:"1.2rem",color:"red"}}/></div>
+                            <div style={{cursor:"pointer"}} className='cursor-pointer' value={1} onClick={() => handleClickOpen(1)}><EditIcon style={{fontSize:"1.2rem",color:"black"}}/></div>
+                            <div style={{cursor:"pointer"}} className='cursor-pointer' value={"delete"} onClick={() => handleClickOpen("delete")}><DeleteIcon style={{fontSize:"1.2rem",color:"red"}}/></div>
                         </div>
                     </div>
                 </div>
@@ -111,7 +109,8 @@ export default function Singlerecipe(props) {
                                 <div className="text-center">
                                     <p>Khabardar !!</p>
                                     <p>Dude !! mujhe chodkar bada pachtaoge.badmein rona mat🤗</p>
-                                    <Button size="small" variant="contained" color="error" value={props.recipe["id"]} onClick={handleDelete}>Continue to Delete</Button>
+                                    {loader ? <Button size="small" variant="contained" color="error" value={props.recipe["id"]} onClick={handleDelete} disabled>Continue to Delete</Button> : <Button size="small" variant="contained" color="error" value={props.recipe["id"]} onClick={handleDelete}>Continue to Delete</Button>}
+                                    
                                 </div>
                                 :
                                 <>

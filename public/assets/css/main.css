@@ -5213,10 +5213,10 @@ img{
 .add-recipe-col {
 	max-width: 960px;
 	margin: 0 auto;
-	padding: 50px 30px;
-	-webkit-box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3);
+	/* padding: 50px 30px; */
+	/* -webkit-box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3);
 	-moz-box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3);
-	box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3);
+	box-shadow: 0px 0px 25px 0px rgba(255,125,95,0.3); */
 }
 .add-recipe-col h4 {
 	color: #161616;

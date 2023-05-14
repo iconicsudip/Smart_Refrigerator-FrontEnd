@@ -55,14 +55,26 @@ export default function ShowProcess({editable,formData, setFormData,steps,setSte
     }
     return (
         <>
-        <div className="text-center">
+        <div style={{textAlign:"initial"}}>
             <span style={{fontSize:"12px"}}>Step {index+1}</span>
         </div>
-        <div className='process-box'>
+        <div className='row process-box w-100'>
             {item==='0'?
-            <TextField className="stepSize" id="filled-read-only-input" value={formData.recipe_process[index]} onChange={setProcess} label={`Step`} InputProps={editable===1?{ readOnly: false}:{readOnly:true}} variant="filled"/>:
-            <TextField className='timer' id="standard-read-only-input" value={formData.recipe_process[index]} onChange={setTime} label="Time in minutes" type="number" InputLabelProps={{shrink: true}} InputProps={editable===1?{ readOnly: false}:{readOnly:true}} variant="filled"/>}
-            <Button value={index} onClick={Delete} size="small" type='submit' variant="contained" color="error">Delete</Button>
+            <>
+                <div className='col-12 col-md-8'>
+                    <input type="text" class="form-control m-0" value={formData.recipe_process[index]} onChange={setProcess} placeholder="Process" required="" disabled={editable===1?false:true}></input>
+                </div>
+            </>
+            
+            :
+            <div className="col-12 col-md-4">
+
+                <input type="number" class="form-control m-0" value={formData.recipe_process[index]} onChange={setTime} placeholder="Time in minutes" required="" disabled={editable===1?false:true}></input>
+            </div>
+            }
+            <div className="col-12 col-md-4 d-flex align-items-center">
+                <Button className='mt-2' style={{borderRadius:"50px"}} value={index} onClick={Delete} size="small" type='submit'     variant="contained" color="error">Delete</Button>
+            </div>
         </div>
         </>
     )
