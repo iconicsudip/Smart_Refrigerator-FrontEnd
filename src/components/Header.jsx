@@ -11,6 +11,22 @@ export default function Header() {
     let {username,logoutUser} = useContext(AuthContext);
     const [open, setOpen] = useState(false);
     const [Alert,setAlert] = useState('');
+    const tempFormData = {
+        recipe_name: "",
+        vegetables: [],
+        ingredients: [],
+        recipe_process: [],
+        video_link: "",
+        recipe_image:"",
+    }
+    const [formData, setFormData] = useState({
+        recipe_name: "",
+        vegetables: [],
+        ingredients: [],
+        recipe_process: [],
+        video_link: "",
+        recipe_image:"",
+    });
     const handleChange = React.useCallback((newValue) => {
         setOpen(newValue);
     }, []);
@@ -18,6 +34,7 @@ export default function Header() {
     const handleOpen = () => setOpen(true);
     const handleClose = () => {
         setOpen(false);
+        setFormData(tempFormData)
         localStorage.removeItem('steps');
     }
     let params = useParams()
@@ -166,7 +183,7 @@ export default function Header() {
             <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box >
                     <Typography id="modal-modal-title" variant="h6" component="h2">
-                        <AddItem setOpen={setOpen} setAlert={setAlert} open={open} Open={handleChange}/>
+                        <AddItem formData={formData} setFormData={setFormData} setOpen={setOpen} setAlert={setAlert} open={open} Open={handleChange} setMyrecipies={""} tempFormData={tempFormData} action={"create"}/>
                     </Typography>
                 </Box>
             </Modal>

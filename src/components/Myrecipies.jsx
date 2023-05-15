@@ -5,6 +5,7 @@ import Singlerecipe from './Singlerecipe';
 export default function Myrecipies() {
     const [myrecipies,setMyrecipies] = useState([]);
     const [showalert,setAlert] = useState('');
+    const [Alert,setEditAlert] = useState('');
     const [loader,setLoader] = useState(true);
     const [showdeletealert,setDeleteAlert] = useState('');
     let {authToken} = useContext(AuthContext);
@@ -46,6 +47,7 @@ export default function Myrecipies() {
                     </div>
                 </div>
             </div>
+            {Alert}
             <div className="outer-container">
                 
                 <div className="row clearfix justify-content-center">
@@ -56,7 +58,7 @@ export default function Myrecipies() {
                     </div>:null}
                     {showdeletealert}
                     {myrecipies.length!==0?myrecipies.map((recipe,index)=>{
-                        return <Singlerecipe setMyrecipies={setMyrecipies} recipe={recipe} setDeleteAlert={setDeleteAlert} key={`recipe${index}`}/>
+                        return <Singlerecipe setAlert={setEditAlert} setMyrecipies={setMyrecipies} recipe={recipe} setDeleteAlert={setDeleteAlert} key={`recipe${index}`}/>
                     }):
                     <>
                     <p className='text-center'>{showalert}</p>
