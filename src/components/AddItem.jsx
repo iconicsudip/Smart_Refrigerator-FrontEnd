@@ -18,6 +18,7 @@ export default function AddItem(props) {
         ingredients: [],
         recipe_process: [],
         video_link: "",
+        recipe_image:"",
     });
     const addRecipe = async ()=>{
         let data =await fetch(`${process.env.REACT_APP_API}/api/addrecipe/`,{
@@ -99,9 +100,11 @@ export default function AddItem(props) {
         <>
         <div className='add-recipe'>
             {/* <form className='add-item-form' onSubmit={()=>addRecipe()} > */}
-            <form className='add-item-form add-recipe-col'>
-                <div className="progress-bar shadow bg-secondary rounded-3">
-                    <div className="div text-center" style={{width:progress+"%",backgroundColor: page === 4 ? "green" : "#ff7d5f",}}></div>
+            <form className='add-item-form add-recipe-col position-relative'>
+                <div className="p-2 progdiv">
+                    <div className="progress-bar shadow bg-secondary rounded-3">
+                        <div className="div text-center" style={{width:progress+"%",backgroundColor: page === 4 ? "green" : "#ff7d5f",}}></div>
+                    </div>
                 </div>
                 <h3 className={`"display-2" ${page === 4 ? "text-success" : "text-purple"} text-center`}>{FormData[page]}</h3>
                 <div className="recipe-form">

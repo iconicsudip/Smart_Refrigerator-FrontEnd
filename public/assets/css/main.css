@@ -1473,7 +1473,7 @@ img{
 	transition: all 700ms ease;
 }
 
-.banner-section .banner-carousel .active .content-box{
+.banner-section .banner-carousel .slick-active .content-box{
 	opacity: 1;
 	-webkit-transform: translateY(0);
 	-moz-transform: translateY(0);

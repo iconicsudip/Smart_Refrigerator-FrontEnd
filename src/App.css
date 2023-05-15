@@ -4,6 +4,29 @@
 /* body{
     background: black;
 } */
+.slick-dots{
+    bottom: 0!important;
+}
+.slick-dots li button:before{
+    font-size: 1rem!important;
+}
+.slick-active .content-box{
+    opacity: 1!important;
+}
+.banner-section-two .content-box .image{
+    margin-top: 5rem;
+}
+.icon.upvote{
+    cursor: pointer;
+}
+.icon.upvote.active{
+    background-color: #ffa48f!important;
+    color: white!important;
+}
+.icon.upvote:hover{
+    background-color: #ffdede;
+    box-shadow: inset 0px 0px 5px #bfb2b29e;
+}
 .allbody{
     display: flex;
     width: 100%;
@@ -64,6 +87,16 @@ form.add-item-form{
     position: absolute;
     right: 1rem;
     top: 0.3rem;
+}
+.progdiv{
+    position: sticky;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    background: white;
+}
+.recipe_image input{
+    font-size: 1rem;
 }
 .progress-bar {
     width: 100%;

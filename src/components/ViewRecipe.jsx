@@ -3,12 +3,14 @@ import { useParams } from 'react-router-dom'
 import AuthContext from '../context/AuthContext';
 import {Link} from 'react-router-dom'
 import $ from 'jquery'
+import {ImArrowUp} from 'react-icons/im'
 
 export default function ViewRecipe() {
     let {authToken} = useContext(AuthContext);
     const params = useParams();
     const [getRecipe,setGetRecipe] = useState(null);
     const [loading,setLoading] =useState(false);
+    const [isVoted,setVote] = useState(false)
     useEffect(()=>{
         $("#play_video").click(function(){
             //as noted in addendum, check for querystring exitence
@@ -30,6 +32,7 @@ export default function ViewRecipe() {
                 },
             }).then(response=>response.json()).then(json=>{
                 setGetRecipe(json)
+                setVote(json.recipe_voted)
                 setLoading(false);
             })
         }
@@ -38,6 +41,27 @@ export default function ViewRecipe() {
     const isNum = (num) =>{
         if (typeof num === "string") {
             return !isNaN(num);
+        }
+    }
+    const updateVote = async (type) =>{
+        await fetch(`${process.env.REACT_APP_API}/api/updatevote/id=${params.recipe_id}&vote=${type}`,{
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+ String(authToken.access)
+            },
+        }).then(response=>response.json()).then(json=>{
+            setGetRecipe(json)
+            setVote(json.recipe_voted)
+        })
+    }
+    const giveVote = ()=>{
+        if(isVoted){
+            updateVote("decrease")
+            setVote(false)
+        }else{
+            updateVote("increase")
+            setVote(true)
         }
     }
     return (
@@ -60,7 +84,11 @@ export default function ViewRecipe() {
                                 <div className="recipe-detail">
                                     <div className="inner-box">
                                         <div className="image">
-                                            <img src="../../assets/images/resource/big.jpg" alt="" />
+                                            {getRecipe?.recipe_image==="None" ?
+                                                <img src="../../assets/images/resource/big.jpg" alt="" />
+                                            :
+                                                <img src={`${getRecipe?.recipe_image}`} alt="" />
+                                            }
                                         </div>
                                         <div className="content" style={{backgroundImage:"url(../../assets/images/background/13.png)"}}>
                                             <div className="author-image">
@@ -80,6 +108,7 @@ export default function ViewRecipe() {
                                             <ul className="post-meta">
                                                 <li><span className="icon flaticon-dish"></span>{getRecipe?.ingredient.length} Ingredients</li>
                                                 <li><span className="icon flaticon-business-and-finance"></span>{getRecipe?.votes} Votes</li>
+                                                <li onClick={giveVote}><span className={`icon upvote ${isVoted?'active':''}`}><ImArrowUp /></span>Upvote</li>
                                             </ul>
                                         </div>
                                         <div className="text">Good Food sounds like the name of an amazingly delicious food delivery service, but don't be fooled. The blog is actually a compilation of recipes, cooking videos, and nutrition tips</div>
