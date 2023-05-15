@@ -4,8 +4,20 @@ import ShowProcess from './ShowProcess';
 import { useState } from 'react';
 export default function Process({ formData, setFormData }) {
   var fsteps = []
+  const isNum = (num) =>{
+    if (typeof num === "string") {
+        return !isNaN(num);
+    }
+  }
   if(localStorage.getItem("steps")===null){
-    fsteps = []
+    for(let i=0;i<formData.recipe_process.length;i++){
+      if(isNum(formData.recipe_process[i])){
+        fsteps.push("1")
+      }else{
+        fsteps.push("0")
+      }
+    }
+    localStorage.setItem("steps",JSON.stringify(fsteps));
   }else{
     fsteps = JSON.parse(localStorage.getItem("steps"));
   }
@@ -32,6 +44,7 @@ export default function Process({ formData, setFormData }) {
       localStorage.setItem("steps",JSON.stringify(steps));
     }
   }
+  
   return (
     <div>
       <div className='d-flex gap-process justify-content-center'>
@@ -40,6 +53,12 @@ export default function Process({ formData, setFormData }) {
       </div>
       <div className="process">
         {steps.length!==0?steps.map((item,index)=>{
+            let items;
+            if(1){
+              items = '1'
+            }else{
+              items = '0'
+            }
               return <ShowProcess editable={edit} formData={formData} setFormData={setFormData} steps={steps} setSteps={setSteps} item={item} index={index} once={once} setOnce={setOnce}/>
         }):<span className='text-center'>Process doesn't exist</span>}
       </div>

@@ -14,25 +14,53 @@ import { useNavigate } from 'react-router-dom';
 import {Link} from 'react-router-dom';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AddItem from './AddItem';
 
 export default function Singlerecipe(props) {
     let {authToken} = useContext(AuthContext);
     const [open, setOpen] = useState(false);
+    const [delopen, setDelOpen] = useState(false);
     const [edit,setEdit] = useState(1);
     const [deleteconfirm,setDeleteConfirm] = useState(false);
-    const [loader,setLoader] = useState(false);
+    const [delloader,setDelLoader] = useState(false);
     const [recipename,setRecipename] = useState(props.recipe["recipe_name"])
+    
     const temp_recipe_name = props.recipe["recipe_name"]
+    const tempFormData = {
+        id:props.recipe.id,
+        recipe_name: props.recipe.recipe_name,
+        vegetables: props.recipe.vegetables,
+        ingredients: props.recipe.ingredient,
+        recipe_process: props.recipe.recipe_process,
+        video_link: props.recipe?.video_link??"",
+        recipe_image:props.recipe.recipe_image,
+    }
+    const [formData, setFormData] = useState({
+        id:props.recipe.id,
+        recipe_name: props.recipe.recipe_name,
+        vegetables: props.recipe.vegetables,
+        ingredients: props.recipe.ingredient,
+        recipe_process: props.recipe.recipe_process,
+        video_link: props.recipe?.video_link??"",
+        recipe_image:props.recipe.recipe_image,
+    });
     const navigate =useNavigate();
     const handleClickOpen = (e) => {
-        setOpen(true);
         //props.recipe["id"]
         if(e==='delete'){
+            setOpen(true);
             setDeleteConfirm(true)
-        }else if(e==='1'){
+        }else if(e===1){
+            setDelOpen(true)
+            console.log(props.recipe)
             setEdit(1)
         }
     };
+    const handleDelClose = () => {
+        setDelOpen(false);
+        setFormData(tempFormData)
+        localStorage.removeItem('steps');
+    }
     const handleClose = () => {
         setOpen(false);
         setRecipename(temp_recipe_name)
@@ -46,7 +74,7 @@ export default function Singlerecipe(props) {
         console.log("saved")
     }
     const handleDelete=async (e)=>{
-        setLoader(true)
+        setDelLoader(true)
         await fetch(`${process.env.REACT_APP_API}/api/recipedelete/${e.target.value}`,{
             method:'GET',
             headers:{
@@ -54,7 +82,7 @@ export default function Singlerecipe(props) {
                 'Authorization':'Bearer '+ String(authToken.access)
             },
         }).then(response=>response.json()).then(json=>{
-            setLoader(false);
+            setDelLoader(false);
             if(json["alert"]){
                 props.setMyrecipies([])
             }else{
@@ -71,6 +99,9 @@ export default function Singlerecipe(props) {
         })
         setOpen(false);
     }
+    const handleChange = React.useCallback((newValue) => {
+        setDelOpen(newValue);
+    }, []);
     return (
         <>
         <div class="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
@@ -101,11 +132,18 @@ export default function Singlerecipe(props) {
                     </div>
                 </div>
             </div>
+            <Modal open={delopen} onClose={handleDelClose} aria-labelledby="modal-modal-title-edit" aria-describedby="modal-modal-description-edit">
+                <Box >
+                    <Typography id="modal-modal-title-edit" variant="h6" component="h2">
+                        <AddItem formData={formData} setFormData={setFormData} setOpen={setDelOpen} setAlert={props.setAlert} open={delopen} Open={handleChange} setMyrecipies={props.setMyrecipies} tempFormData={tempFormData} action={"edit"}/>
+                    </Typography>
+                </Box>
+            </Modal>
             <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
                 <Box >
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         <div className="my-recipe">
-                            {loader?
+                            {delloader?
                                 <div className="loader">
                                     <img src="./loading.gif" width={40} alt="" />
                                 </div>:
@@ -115,12 +153,12 @@ export default function Singlerecipe(props) {
                                 <div className="text-center">
                                     <p>Khabardar !!</p>
                                     <p>Dude !! mujhe chodkar bada pachtaoge.badmein rona mat🤗</p>
-                                    {loader ? <Button size="small" variant="contained" color="error" value={props.recipe["id"]} onClick={handleDelete} disabled>Continue to Delete</Button> : <Button size="small" variant="contained" color="error" value={props.recipe["id"]} onClick={handleDelete}>Continue to Delete</Button>}
+                                    {delloader ? <Button size="small" variant="contained" color="error" value={props.recipe["id"]} onClick={handleDelete} disabled>Continue to Delete</Button> : <Button size="small" variant="contained" color="error" value={props.recipe["id"]} onClick={handleDelete}>Continue to Delete</Button>}
                                     
                                 </div>
                                 :
                                 <>
-                                <div className="recipe">
+                                {/* <div className="recipe">
                                     <TextField fullWidth className="stepSize" id="filled-read-only-input" value={recipename} onChange={setRecipeName} label={`Recipe Name`} InputProps={edit?{ readOnly: false}:{readOnly:true}} variant="filled"/>
                                 </div>
                                 {edit?
@@ -128,7 +166,7 @@ export default function Singlerecipe(props) {
                                         <Button size="small" variant="contained" onClick={handleClose}>Cancel</Button>
                                         <Button size="small" variant="contained" color='success' onClick={handleSave}>Save Changes</Button>
                                     </div>
-                                :null}
+                                :null} */}
                                 </>
                             }
                         </div>

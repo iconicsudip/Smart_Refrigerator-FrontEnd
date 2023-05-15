@@ -3,6 +3,7 @@ import { TextField } from '@mui/material';
 import Button from '@mui/material/Button';
 
 export default function ShowProcess({editable,formData, setFormData,steps,setSteps,item,index,once,setOnce}) {
+    // console.log(item)
     var temp = formData.recipe_process;
     if(once){
         var t = [];
