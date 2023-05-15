@@ -76,7 +76,13 @@ export default function Singlerecipe(props) {
         <div class="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
             <div class="inner-box">
                 <div class="image">
-                    <Link to={`/myrecipies/recipe/${props.recipe['id']}`}><img src="assets/images/resource/entertaining-5.jpg" alt="" /></Link>
+                    <Link to={`/myrecipies/recipe/${props.recipe['id']}`}>
+                        {props.recipe["recipe_image"]==="None" ?
+                            <img src="assets/images/resource/entertaining-5.jpg" alt="" />
+                        :
+                        <img src={`${props.recipe["recipe_image"]}`} alt="" />
+                        }
+                    </Link>
                 </div>
                 <div class="lower-content">
                     <div class="author-image"><img src="assets/images/resource/author-4.jpg" alt="" /></div>

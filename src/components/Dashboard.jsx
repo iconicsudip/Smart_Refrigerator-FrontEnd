@@ -182,7 +182,14 @@ export default function Dashboard() {
                     <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                         <div className="inner-box">
                             <div className="image">
-                                <Link to={`/myrecipies/recipe/${item.id}`}><img src="assets/images/resource/recipe-8.jpg" alt="" /></Link>
+                            
+                                <Link to={`/myrecipies/recipe/${item.id}`}>
+                                  {item.recipe_image==="None" ?
+                                      <img src="assets/images/resource/entertaining-5.jpg" alt="" />
+                                  :
+                                    <img src={`${item.recipe_image}`} alt="" />
+                                  }
+                                </Link>
                             </div>
                             <div className="lower-content">
                                 <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>

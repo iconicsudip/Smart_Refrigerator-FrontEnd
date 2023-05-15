@@ -3,8 +3,8 @@ import {Link} from 'react-router-dom'
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import OwlCarousel from 'react-owl-carousel';
+import Slider from "react-slick";
 export default function Home() {
-    let [hometext,setText] = useState("");
     let [getcarousel,setCarousel] = useState([])
     useEffect(()=>{
             // your standard jquery code goes here with $ prefix
@@ -42,16 +42,26 @@ export default function Home() {
     async function setHomeText(){
         let response = await fetch(`${process.env.REACT_APP_API}/api/`);
         let data = await response.json();
-        // console.log(data['data'],data['home'])
-        setText(data["home"]);
+        // // console.log(data['data'],data['home'])
+        // setText(data["home"]);
         setCarousel(data["data"])
     }
+    const settings = {
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        autoplay: true,
+        speed: 1000,
+        autoplaySpeed: 3000,
+        cssEase: "linear",
+        arrows: false,
+    };
     return (
         <>
         
         <section className="banner-section-two">
-            <OwlCarousel className='banner-carousel owl-theme owl-carousel' loop margin={10} items={1} autoplay={true} dots={false} nav>
-                {/* <div className="slide-item item">
+        {/* <OwlCarousel className='banner-carousel owl-theme owl-carousel' loop margin={10} items={1} autoplay={true} dots={false} nav>
+                <div className="slide-item item">
                     <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
                     <div className="auto-container">
@@ -75,17 +85,24 @@ export default function Home() {
                             </ul>
                         </div>  
                     </div>
-                </div> */}
+                </div>
+                    
+            </OwlCarousel> */}
+            <Slider {...settings}>
                     {getcarousel.map((item)=>{
                         return (
                             <Link key={item.id} to={`/myrecipies/recipe/${item.id}`}>
-                                <div className="slide-item item">
+                                <div className="slide-item">
                                     <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
 
                                     <div className="auto-container">
                                         <div className="content-box">
                                             <div className="image">
-                                                <img src="assets/images/resource/image-1.png" alt="" />
+                                                {item?.recipe_image==="None" ?
+                                                    <img src="assets/images/resource/image-1.png" alt="" />
+                                                :
+                                                    <img src={`${item?.recipe_image}`} alt="" />
+                                                }
                                             </div>
                                             
                                             <div className="author-name">
@@ -107,7 +124,7 @@ export default function Home() {
                             </Link>
                         )
                     })}
-            </OwlCarousel>
+            </Slider>
         </section>
         <section className="trending-section style-two">
 		<div className="auto-container">
@@ -130,7 +147,7 @@ export default function Home() {
 						
 						<div className="sec-title">
 							{/* <div className="title">TRENDING</div> */}
-							<h2>{hometext}</h2>
+							<h2>Smart Refrigerator With Smart Cooking Techniques</h2>
 							<div className="text">Preheat oven to 325°. In a small bowl, mix the first 5 ingredients. Place roast in a roasting pan, fat side up; rub with seasoning mixture.Roast 2-1/4 to 2-3/4 hours or until meat reaches desired doneness (for medium-rare, a thermometer should read 135°; medium, 140°; medium-well, 145°). Remove roast from oven; tent with foil. Let stand 15 minutes before carving.</div>
 						</div>
 						<div className="bold-text">To separate the fat from the drippings with ease, try this tool from OXO ($14).</div>
@@ -162,7 +179,13 @@ export default function Home() {
                             <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                                 <div className="inner-box">
                                     <div className="image">
-                                        <Link to={`/myrecipies/recipe/${item.id}`}><img src="assets/images/resource/recipe-8.jpg" alt="" /></Link>
+                                        <Link to={`/myrecipies/recipe/${item.id}`}>
+                                            {item?.recipe_image==="None" ?
+                                                <img src="assets/images/resource/recipe-8.jpg" alt="" />
+                                            :
+                                                <img src={`${item?.recipe_image}`} alt="" />
+                                            }
+                                        </Link>
                                     </div>
                                     <div className="lower-content">
                                         <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>

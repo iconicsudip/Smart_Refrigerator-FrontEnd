@@ -12,6 +12,8 @@ import Myrecipies from './components/Myrecipies';
 import ViewRecipe from './components/ViewRecipe';
 import 'bootstrap/dist/js/bootstrap.min.js'
 import Footer from './components/Footer';
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 function App() {
   useEffect(()=>{
     localStorage.removeItem('steps')

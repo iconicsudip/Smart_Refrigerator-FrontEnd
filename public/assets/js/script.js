@@ -19,10 +19,10 @@
 			console.log("hllo")
 			if (windowpos >= 1) {
 				siteHeader.addClass('fixed-header');
-				scrollLink.fadeIn(300);
+				// scrollLink.fadeIn(300);
 			} else {
 				siteHeader.removeClass('fixed-header');
-				scrollLink.fadeOut(300);
+				// scrollLink.fadeOut(300);
 			}
 		}
 	}
@@ -42,11 +42,11 @@
 			if (windowpos > 100) {
 				siteHeader.addClass('fixed-header');
 				sticky_header.addClass("animated slideInDown");
-				scrollLink.fadeIn(300);
+				// scrollLink.fadeIn(300);
 			} else {
 				siteHeader.removeClass('fixed-header');
 				sticky_header.removeClass("animated slideInDown");
-				scrollLink.fadeOut(300);
+				// scrollLink.fadeOut(300);//
 			}
 		}
 	}
