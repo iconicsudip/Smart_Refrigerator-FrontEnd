@@ -1,43 +1,16 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import {Link} from 'react-router-dom'
 import 'owl.carousel/dist/assets/owl.carousel.css';
 import 'owl.carousel/dist/assets/owl.theme.default.css';
 import OwlCarousel from 'react-owl-carousel';
 import Slider from "react-slick";
+import RefriBot from './RefriBot';
+import AuthContext from '../context/AuthContext';
 export default function Home() {
     let [getcarousel,setCarousel] = useState([])
+    let {username} = useContext(AuthContext);
     useEffect(()=>{
-            // your standard jquery code goes here with $ prefix
-            // best used inside a page with inline code, 
-            // or outside the document ready, enter code here
-        // if ($('.banner-carousel').length) {
-        //     $('.banner-carousel').owlCarousel({
-        //         loop:true,
-        //         margin:0,
-        //         nav:true,
-        //         smartSpeed: 500,
-        //         autoplay: 6000,
-        //         navText: [ '<span class="fa fa-angle-left"></span>', '<span class="fa fa-angle-right"></span>' ],
-        //         responsive:{
-        //             0:{
-        //                 items:1
-        //             },
-        //             600:{
-        //                 items:1
-        //             },
-        //             800:{
-        //                 items:1
-        //             },
-        //             1024:{
-        //                 items:1
-        //             }
-        //         }
-        //     });
-        // }
         setHomeText();
-        
-        // $(document).load('index.html',()=>{
-        // })
     },[])
     async function setHomeText(){
         let response = await fetch(`${process.env.REACT_APP_API}/api/`);
@@ -58,36 +31,9 @@ export default function Home() {
     };
     return (
         <>
+        {username!==null?<RefriBot username={username}/>:null}
         
         <section className="banner-section-two">
-        {/* <OwlCarousel className='banner-carousel owl-theme owl-carousel' loop margin={10} items={1} autoplay={true} dots={false} nav>
-                <div className="slide-item item">
-                    <div className="image-layer" style={{backgroundImage:"url(assets/images/background/6.jpg)"}}></div>
-
-                    <div className="auto-container">
-                        <div className="content-box">
-                            <div className="image">
-                                <img src="assets/images/resource/image-1.png" alt="" />
-                            </div>
-                            
-                            <div className="author-name">
-                                <div className="author-inner">
-                                    <div className="author-icon">
-                                        <img src="assets/images/resource/author-1.jpg" alt="" />
-                                    </div>
-                                    by Author name
-                                </div>
-                            </div>
-                            <h1>Recipename</h1>
-                            <ul className="post-meta">
-                                <li><span className="icon flaticon-dish"></span>12 Ingredients</li>
-                                <li><span className="icon flaticon-business-and-finance"></span>4 Votes</li>
-                            </ul>
-                        </div>  
-                    </div>
-                </div>
-                    
-            </OwlCarousel> */}
             <Slider {...settings}>
                     {getcarousel.map((item)=>{
                         return (

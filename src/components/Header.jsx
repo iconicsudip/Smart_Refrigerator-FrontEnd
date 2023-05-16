@@ -6,6 +6,7 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import AddItem from './AddItem';
 import {Button} from '@mui/material'
+
 import $ from 'jquery'; 
 export default function Header() {
     let {username,logoutUser} = useContext(AuthContext);
@@ -112,7 +113,7 @@ export default function Header() {
                         <div className="clearfix">
                             
                             <div className="pull-left logo-box">
-                                <div className="logo"><Link to="/"><img src="assets/images/logo.png" alt="" title=""/></Link></div>
+                                <div className="logo"><Link to="/"><img src="logo_fp.png" alt="" title=""/></Link></div>
                             </div>
                             
                             <div className="nav-outer clearfix">

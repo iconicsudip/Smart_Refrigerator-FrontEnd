@@ -23,9 +23,15 @@
     background-color: #ffa48f!important;
     color: white!important;
 }
+.logo img {
+    width: 4rem;
+}
 .icon.upvote:hover{
     background-color: #ffdede;
     box-shadow: inset 0px 0px 5px #bfb2b29e;
+}
+.rsc-ts-image{
+    background: white!important;
 }
 .allbody{
     display: flex;
