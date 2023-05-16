@@ -4,9 +4,10 @@ import AuthContext from '../context/AuthContext';
 import {Link} from 'react-router-dom'
 import $ from 'jquery'
 import {ImArrowUp} from 'react-icons/im'
+import RefriBot from './RefriBot';
 
 export default function ViewRecipe() {
-    let {authToken} = useContext(AuthContext);
+    let {authToken,username} = useContext(AuthContext);
     const params = useParams();
     const [getRecipe,setGetRecipe] = useState(null);
     const [loading,setLoading] =useState(false);
@@ -66,6 +67,7 @@ export default function ViewRecipe() {
     }
     return (
         <>
+        {username!==null?<RefriBot username={username}/>:null}
         <section className="page-title" style={{backgroundImage:"url(../../assets/images/background/10.jpg"}}>
             <div className="auto-container">
                 <h1>{getRecipe?.recipe_name}</h1>

@@ -199,10 +199,10 @@
 		padding:20px 0px;
 	}
 	
-	.main-header .header-upper .outer-box .login-info li:first-child,
+	/* .main-header .header-upper .outer-box .login-info li:first-child,
 	.main-header .header-upper .outer-box .search-box-outer{
 		display:none;
-	}
+	} */
 	
 	.category-block .inner-box .lower-content .text br,
 	.banner-section .banner-carousel .content-box .text br{
@@ -664,9 +664,9 @@
 		font-size:40px;
 	}
 	
-	.header-upper .outer-box, .main-header .header-upper .outer-box{
+	/* .header-upper .outer-box, .main-header .header-upper .outer-box{
 		display:none;
-	}
+	} */
 	
 	.main-menu{
 		display:none;

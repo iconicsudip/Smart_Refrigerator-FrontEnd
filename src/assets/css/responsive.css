@@ -199,10 +199,10 @@
 		padding:20px 0px;
 	}
 	
-	.main-header .header-upper .outer-box .login-info li:first-child,
+	/* .main-header .header-upper .outer-box .login-info li:first-child,
 	.main-header .header-upper .outer-box .search-box-outer{
 		display:none;
-	}
+	} */
 	
 	.category-block .inner-box .lower-content .text br,
 	.banner-section .banner-carousel .content-box .text br{
@@ -289,7 +289,7 @@
 	}
 	
 	.banner-section-two{
-		padding-top:100px;
+		padding-top:85px;
 	}
 	
 	.main-menu .navigation > li.has-mega-menu{
@@ -492,13 +492,18 @@
 	
 	.main-header.fixed-header .header-upper .outer-box, .main-header .header-upper .outer-box,
 	.main-header .header-upper .outer-box{
-		position:absolute;
+		/* position:absolute; */
 		left:0px;
 		top:18px;
 		right:auto;
 		z-index:12;
 		padding-left:0px;
 		padding-top:4px;
+	}
+	.main-header.fixed-header .header-upper .outer-box, .main-header .header-upper .outer-box,
+	.main-header .header-upper .outer-box .recipe a{
+		font-size: 12px!important;
+		padding: 12px!important;
 	}
 	
 	.main-header .top-right{
@@ -664,9 +669,9 @@
 		font-size:40px;
 	}
 	
-	.header-upper .outer-box, .main-header .header-upper .outer-box{
+	/* .header-upper .outer-box, .main-header .header-upper .outer-box{
 		display:none;
-	}
+	} */
 	
 	.main-menu{
 		display:none;

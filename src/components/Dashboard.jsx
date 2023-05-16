@@ -18,7 +18,7 @@ export default function Dashboard() {
   const [search,setSearch] = useState('');
   const [searchresult,setSearchResult] = useState(null);
   const [loader,setLoader] = useState(true);
-  const {authToken} = useContext(AuthContext);
+  const {authToken,username} = useContext(AuthContext);
   const [recipeResult,setRecipeResult] = useState(null)
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
@@ -110,7 +110,7 @@ export default function Dashboard() {
   }
   return (
     <>
-      <RefriBot />
+      {username!==null?<RefriBot username={username}/>:null}
       <section className="page-title" style={{backgroundImage:"url(assets/images/background/10.jpg"}}>
           <div className="auto-container">
               <h1>Dashboard</h1>

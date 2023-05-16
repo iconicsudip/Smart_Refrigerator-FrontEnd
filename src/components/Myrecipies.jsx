@@ -1,6 +1,7 @@
 import React, { useState,useEffect,useContext } from 'react'
 import AuthContext from '../context/AuthContext';
 import Singlerecipe from './Singlerecipe';
+import RefriBot from './RefriBot';
 
 export default function Myrecipies() {
     const [myrecipies,setMyrecipies] = useState([]);
@@ -8,7 +9,7 @@ export default function Myrecipies() {
     const [Alert,setEditAlert] = useState('');
     const [loader,setLoader] = useState(true);
     const [showdeletealert,setDeleteAlert] = useState('');
-    let {authToken} = useContext(AuthContext);
+    let {authToken,username} = useContext(AuthContext);
     useEffect(()=>{
         (async()=>{
             await fetch(`${process.env.REACT_APP_API}/api/getuserdashboard/`,{
@@ -30,7 +31,7 @@ export default function Myrecipies() {
     },[myrecipies,setLoader])
     return (
         <>
-        
+        {username!==null?<RefriBot username={username}/>:null}
         <section className="page-title" style={{backgroundImage:"url(assets/images/background/10.jpg"}}>
             <div className="auto-container">
                 <h1>My Recipes </h1>
