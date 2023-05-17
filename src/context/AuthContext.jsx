@@ -112,8 +112,9 @@ export const AuthProvider = ({children})=>{
         })
     }
     useEffect(()=>{
-        
-        getUserDetails(username.username)
+        if(username){
+            getUserDetails(username.username)
+        }
     },[username])
     return (
         <AuthContext.Provider value={contextData}>
