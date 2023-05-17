@@ -28,7 +28,7 @@ export default function Myrecipies() {
             })
         })()
         
-    },[myrecipies,setLoader])
+    },[myrecipies])
     return (
         <>
         {username!==null?<RefriBot username={username}/>:null}

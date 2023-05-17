@@ -104,9 +104,9 @@ export default function Singlerecipe(props) {
     }, []);
     return (
         <>
-        <div class="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
-            <div class="inner-box">
-                <div class="image">
+        <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
+            <div className="inner-box">
+                <div className="image">
                     <Link to={`/myrecipies/recipe/${props.recipe['id']}`}>
                         {props.recipe["recipe_image"]==="None" ?
                             <img src="assets/images/resource/entertaining-5.jpg" alt="" />
@@ -115,15 +115,23 @@ export default function Singlerecipe(props) {
                         }
                     </Link>
                 </div>
-                <div class="lower-content">
-                    <div class="author-image"><img src="assets/images/resource/author-4.jpg" alt="" /></div>
-                    {/* <div class="category">Gluten Free Recipes</div> */}
+                <div className="lower-content">
+                    <div className="author-image">
+                        <Link to={`/profile/${props.recipe["author_name"]}`}>
+                            {props.recipe["author_image"] ?
+                                <img src={`${props.recipe["author_image"]}`} alt="" />
+                                :
+                                <img src="/assets/images/avatar.png" alt="" />
+                            }
+                        </Link>
+                    </div>
+                    {/* <div className="category">Gluten Free Recipes</div> */}
                     <h4><Link to={`/myrecipies/recipe/${props.recipe['id']}`}>{props.recipe["recipe_name"]}</Link></h4>
-                    <div class="text">{(props.recipe["recipe_process"]).toString().slice(0,100)}...</div>
+                    <div className="text">{(props.recipe["recipe_process"]).toString().slice(0,100)}...</div>
                     <div className="recipe-footer-options d-flex justify-content-between">
-                        <ul class="post-meta">
+                        <ul className="post-meta">
                             <li><span className="icon flaticon-dish"></span>{props.recipe["ingredient"].length} Ingredients</li>
-                            <li><span class="icon flaticon-business-and-finance"></span>{props.recipe["votes"]} Votes</li>
+                            <li><span className="icon flaticon-business-and-finance"></span>{props.recipe["votes"]} Votes</li>
                         </ul>
                         <div className="options d-flex" style={{marginTop:"10px",gap:"0.5rem"}}>
                             <div style={{cursor:"pointer"}} className='cursor-pointer' value={1} onClick={() => handleClickOpen(1)}><EditIcon style={{fontSize:"1.2rem",color:"black"}}/></div>

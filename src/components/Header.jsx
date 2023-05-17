@@ -9,7 +9,8 @@ import {Button} from '@mui/material'
 
 import $ from 'jquery'; 
 export default function Header() {
-    let {username,logoutUser} = useContext(AuthContext);
+    let {username,logoutUser,userDetails} = useContext(AuthContext);
+    // const [userDetails,setUserDetails] = useState(null);
     const [open, setOpen] = useState(false);
     const [Alert,setAlert] = useState('');
     const tempFormData = {
@@ -40,8 +41,19 @@ export default function Header() {
     }
     let params = useParams()
     // console.log(username["username"])
+    // const getUserDetails = async (username) => {
+    //     await fetch(`${process.env.REACT_APP_API}/api/userdetails/${username}`,{
+    //         method:'GET',
+    //         headers:{
+    //             'Content-Type':'application/json',
+    //         },
+    //     }).then(response=>response.json()).then(json=>{
+    //         setUserDetails(json)
+    //     })
+    // }
     useEffect(() => {
         //Hidden Sidebar
+        // getUserDetails(username.username)
         if ($('.hidden-bar').length) {
             var hiddenBar = $('.sidebar-btn');
             var hiddenBarOpener = $('.sidebar-btn');
@@ -59,28 +71,6 @@ export default function Header() {
             });
         }
         
-        
-        //Submenu Dropdown Toggle
-        // if($('.main-header li.dropdown ul').length){
-        //     $('.main-header li.dropdown').append('<div class="dropdown-btn"><span class="fa fa-angle-down"></span></div>');
-            
-        //     //Dropdown Button
-        //     $('.main-header li.dropdown .dropdown-btn').on('click', function() {
-        //         $(this).prev('ul').slideToggle(500);
-        //     });
-            
-        //     //Disable dropdown parent link
-        //     $('.main-header .navigation li.dropdown > a,.hidden-bar .side-menu li.dropdown > a').on('click', function(e) {
-        //         e.preventDefault();
-        //     });
-            
-        //     //Main Menu Fade Toggle
-        //     $('.main-header .nav-toggler').on('click', function() {
-        //         $('.main-header .main-menu').fadeToggle(300);
-        //     });
-            
-        // }
-
         if($('.mobile-menu').length && $('.mobile-menu .navbar-header').length===0){
 		
             // $('.mobile-menu .menu-box').mCustomScrollbar();
@@ -105,6 +95,7 @@ export default function Header() {
             });
         }
     },[params])
+    console.log(userDetails)
     return (
         <>
             <header className="main-header fixed-top header-style-one">
@@ -153,10 +144,23 @@ export default function Header() {
                                     <ul className="login-info">
                                         {username ? 
                                         <>
-                                        <li>
-                                            <Link to="" onClick={logoutUser}>Log out {username.username}</Link>                                            
-                                        </li>
-                                        <li className="recipe"><Link to="#" onClick={handleOpen}><span className="fa fa-plus-circle"></span>&nbsp; Add Recipe</Link></li>
+                                            <li>
+                                                <div className="dropdown text-end">
+                                                    <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        {userDetails?.image ?
+                                                            <img src={`${userDetails?.image}`} width="32" height="32" alt="" className="rounded-circle" />
+                                                            :
+                                                            <img src="/assets/images/avatar.png" width="32" height="32" alt="" className="rounded-circle" />
+                                                        }
+                                                    </a>
+                                                    <ul style={{background:"#222222"}} className="dropdown-menu text-small" data-popper-placement="bottom-end">
+                                                        <li><Link className="dropdown-item" to={`/profile/${username.username}`} >Profile</Link></li>
+                                                        <li><hr className="dropdown-divider"/></li>
+                                                        <li><Link className="dropdown-item" to="" onClick={logoutUser}>Log out</Link></li>
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                            <li className="recipe"><Link to="#" onClick={handleOpen}><span className="fa fa-plus-circle"></span>&nbsp; Add Recipe</Link></li>
                                         </>
                                         :
                                         <li><Link to="/signin"><span className="icon fa fa-user"></span>Login</Link></li>

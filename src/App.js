@@ -15,6 +15,7 @@ import Footer from './components/Footer';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import RefriBot from './components/RefriBot';
+import Profile from './components/Profile';
 function App() {
   const [isAuth,setIsAuth] = useState(null)
   useEffect(()=>{
@@ -28,6 +29,7 @@ function App() {
             {/* <PrivateRoute child={<RefriBot />}><RefriBot /></PrivateRoute> */}
             <Routes>
                 <Route exact path="/" element={<Home />} />
+                <Route exact path="/profile/:user_name" element={<Profile />} />
                 <Route exact path="/dashboard" element={<PrivateRoute child={<Dashboard />}><Dashboard /></PrivateRoute>}/>
                 <Route exact path="/myrecipies" element={<PrivateRoute child={<Myrecipies />}><Myrecipies /></PrivateRoute>}/>
                 <Route exact path="/signup" element={<SignUp />} />

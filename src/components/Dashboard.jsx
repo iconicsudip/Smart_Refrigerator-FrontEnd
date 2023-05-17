@@ -34,6 +34,7 @@ export default function Dashboard() {
             'Authorization':'Bearer '+ String(authToken.access),
         },
     }).then(response=>response.json()).then(json=>{
+      console.log(json)
         if(json["notfound"]){
           setRecipeResult(json["notfound"])
         }else{
@@ -192,7 +193,15 @@ export default function Dashboard() {
                                 </Link>
                             </div>
                             <div className="lower-content">
-                                <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>
+                                <div className="author-image">
+                                  <Link to={`/profile/${item.author_name}`}>
+                                    {item.author_image ?
+                                        <img src={`${item.author_image}`} alt="" />
+                                        :
+                                        <img src="/assets/images/avatar.png" alt="" />
+                                    }
+                                  </Link>
+                                </div>
                                 <div className="category">by {item.author_name}</div>
                                 <h4><Link to={`/myrecipies/recipe/${item.id}`}>{item.recipe_name}</Link></h4>
                                 <div className="text">{(item.recipe_process).toString().slice(0,100)}...</div>

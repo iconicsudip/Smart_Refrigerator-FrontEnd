@@ -54,7 +54,11 @@ export default function Home() {
                                             <div className="author-name">
                                                 <div className="author-inner">
                                                     <div className="author-icon">
-                                                        <img src="assets/images/resource/author-1.jpg" alt="" />
+                                                        {item.author_image ?
+                                                            <img src={`${item.author_image}`} alt="" />
+                                                            :
+                                                            <img src="/assets/images/avatar.png" alt="" />
+                                                        }
                                                     </div>
                                                     by {item.author_name}
                                                 </div>
@@ -134,7 +138,15 @@ export default function Home() {
                                         </Link>
                                     </div>
                                     <div className="lower-content">
-                                        <div className="author-image"><img src="assets/images/resource/author-5.jpg" alt="" /></div>
+                                        <div className="author-image">
+                                            <Link to={`/profile/${item.author_name}`}>
+                                                {item.author_image ?
+                                                    <img src={`${item.author_image}`} alt="" />
+                                                    :
+                                                    <img src="/assets/images/avatar.png" alt="" />
+                                                }
+                                            </Link>
+                                        </div>
                                         <div className="category">by {item.author_name}</div>
                                         <h4><Link to={`/myrecipies/recipe/${item.id}`}>{item.recipe_name}</Link></h4>
                                         <div className="text">{(item.recipe_process).toString().slice(0,100)}...</div>

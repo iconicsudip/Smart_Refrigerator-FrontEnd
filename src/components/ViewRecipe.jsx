@@ -32,6 +32,7 @@ export default function ViewRecipe() {
                     'Authorization':'Bearer '+ String(authToken.access)
                 },
             }).then(response=>response.json()).then(json=>{
+                console.log(json)
                 setGetRecipe(json)
                 setVote(json.recipe_voted)
                 setLoading(false);
@@ -94,7 +95,13 @@ export default function ViewRecipe() {
                                         </div>
                                         <div className="content" style={{backgroundImage:"url(../../assets/images/background/13.png)"}}>
                                             <div className="author-image">
-                                                <img src="../../assets/images/resource/author-9.jpg" alt="" />
+                                                <Link to={`/profile/${getRecipe?.author_name}`}>
+                                                    {getRecipe?.author_image ?
+                                                        <img src={`${getRecipe?.author_image}`} alt="" />
+                                                        :
+                                                        <img src="/assets/images/avatar.png" alt="" />
+                                                    }
+                                                </Link>
                                             </div>
                                             {/* <div className="category">recipes Pizza</div> */}
                                             <h2> {getRecipe?.recipe_name}</h2>

@@ -104,6 +104,17 @@ form.add-item-form{
 .recipe_image input{
     font-size: 1rem;
 }
+.dropdown-item:focus, .dropdown-item:hover {
+    background: #ff8667!important;
+}
+header.fixed-header{
+    background: #222222!important;
+}
+.dropdown-menu li{
+    line-height: 1.15!important;
+    width: 100%;
+    margin: 0;
+}
 .progress-bar {
     width: 100%;
     height: 10px;

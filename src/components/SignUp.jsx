@@ -89,56 +89,56 @@ export default function SignUp() {
         <>
 
 
-            <section class="page-title" style={{backgroundImage:"url(assets/images/background/17.png)"}}>
-                <div class="auto-container">
+            <section className="page-title" style={{backgroundImage:"url(assets/images/background/17.png)"}}>
+                <div className="auto-container">
                     <h1>Register</h1>
                 </div>
             </section>
-            <div class="register-container margin">
-                <div class="top-layer" style={{backgroundImage:"url(assets/images/background/20.png)"}}></div>
-                <div class="bottom-layer" style={{backgroundImage:"url(assets/images/background/21.png)"}}></div>
-                <div class="auto-container">
-                    <div class="inner-container">
-                        <div class="row clearfix">
-                            <div class="image-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <div class="image">
+            <div className="register-container margin">
+                <div className="top-layer" style={{backgroundImage:"url(assets/images/background/20.png)"}}></div>
+                <div className="bottom-layer" style={{backgroundImage:"url(assets/images/background/21.png)"}}></div>
+                <div className="auto-container">
+                    <div className="inner-container">
+                        <div className="row clearfix">
+                            <div className="image-column col-lg-6 col-md-12 col-sm-12">
+                                <div className="inner-column">
+                                    <div className="image">
                                         <img src="assets/images/resource/contact.jpg" alt="" />
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-column col-lg-6 col-md-12 col-sm-12">
-                                <div class="inner-column">
-                                    <div class="pattern-layer" style={{backgroundImage:"url(assets/images/background/18.png)"}}></div>
-                                    <div class="pattern-layer-2" style={{backgroundImage:"url(assets/images/background/19.png)"}}></div>
-                                    <div class="register-form">
+                            <div className="form-column col-lg-6 col-md-12 col-sm-12">
+                                <div className="inner-column">
+                                    <div className="pattern-layer" style={{backgroundImage:"url(assets/images/background/18.png)"}}></div>
+                                    <div className="pattern-layer-2" style={{backgroundImage:"url(assets/images/background/19.png)"}}></div>
+                                    <div className="register-form">
                                             
                                         <form method="POST" onSubmit={Submit}>
                                             {customalert}
-                                            <div class="form-group">
+                                            <div className="form-group">
                                                 <input type="text" name="username" placeholder="User Name" value={username} onChange={(e) => setUsername(e.target.value)} required/>
                                             </div>
                                             
-                                            <div class="form-group">
+                                            <div className="form-group">
                                                 <input type="text" value={name} name="name" placeholder="Full Name" onChange={(e) => setName(e.target.value)} required/>
                                             </div>
-                                            <div class="form-group">
+                                            <div className="form-group">
                                                 <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} required/>
                                             </div>
-                                            <div class="form-group position-relative d-flex">
+                                            <div className="form-group position-relative d-flex">
                                                 <input type={type} name="password" placeholder="Password" value={fpassword} onChange={(e) => setFpassword(e.target.value)} required/>
                                                 <IconButton className='eye-button' aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword} edge="end" >
                                                     {values.showPassword ? <VisibilityOff /> : <Visibility />}
                                                 </IconButton>
                                             </div>
 
-                                            <div class="form-group">
+                                            <div className="form-group">
                                                 <input type="password" name="password" placeholder="Confirm password" value={spassword} onChange={(e) => setSpassword(e.target.value)} required/>
                                             </div>
                                             
                                             
-                                            <div class="form-group">
-                                                <button class="theme-btn btn-style-one" type="submit" name="submit-form"><span class="txt">Register</span></button>
+                                            <div className="form-group">
+                                                <button className="theme-btn btn-style-one" type="submit" name="submit-form"><span className="txt">Register</span></button>
                                                 Already have an account? <Link to="/signin">Log In</Link>
                                             </div>
 
