@@ -10,12 +10,14 @@ export const AuthProvider = ({children})=>{
     const [loading,setLoading] = useState(true);
     const [authToken,setAuthToken] = useState(()=>localStorage.getItem("Authtoken")?JSON.parse(localStorage.getItem("Authtoken")):null);
     const [username,setUsername] = useState(()=>localStorage.getItem("Authtoken")?jwt_decode(localStorage.getItem("Authtoken")):null);
+    const [userDetails,setUserDetails] = useState(null)
     const [customalert,setAlert] = useState('');
     let loginUser = async (e)=>{
         e.preventDefault();
         let username_url = `${process.env.REACT_APP_API}/api/getusername/`+e.target.email.value;
         let user_name = await fetch(username_url);
         const raw = await user_name.json();
+        console.log(raw)
         if(await user_name.status === 400){
             setAlert(
                 <div className="alert alert-danger" role="alert">
@@ -54,6 +56,7 @@ export const AuthProvider = ({children})=>{
     let logoutUser = useCallback(()=>{
         setAuthToken(null)
         setUsername(null)
+        setUserDetails(null)
         localStorage.removeItem("Authtoken");
         navigate("/signin")
     },[navigate])
@@ -83,7 +86,8 @@ export const AuthProvider = ({children})=>{
         logoutUser:logoutUser,
         customalert:customalert,
         username:username,
-        authToken:authToken
+        authToken:authToken,
+        userDetails:userDetails
     }
     useEffect(()=>{
         if(loading){
@@ -97,6 +101,20 @@ export const AuthProvider = ({children})=>{
         },fiveMinutes);
         return ()=>clearInterval(interval)
     },[updateToken,authToken,loading])
+    const getUserDetails = async (username) =>{
+        await fetch(`${process.env.REACT_APP_API}/api/userdetails/${username}`,{
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+            },
+        }).then(response=>response.json()).then(json=>{
+            setUserDetails(json)
+        })
+    }
+    useEffect(()=>{
+        
+        getUserDetails(username.username)
+    },[username])
     return (
         <AuthContext.Provider value={contextData}>
             {loading?null:children}

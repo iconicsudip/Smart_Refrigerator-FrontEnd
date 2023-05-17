@@ -12,7 +12,7 @@ const BotRedirect = ({ url, message }) => {
     );
 };
 const CHATBOT_THEME = {
-    background: "#C9FF8F",
+    background: "#faf3f1",
     botBackground:"white",
     headerBgColor: "#ff7d5f",
     headerFontSize: "20px",
