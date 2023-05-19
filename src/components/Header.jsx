@@ -95,7 +95,6 @@ export default function Header() {
             });
         }
     },[params])
-    console.log(userDetails)
     return (
         <>
             <header className="main-header fixed-top header-style-one">

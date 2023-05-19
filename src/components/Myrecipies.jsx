@@ -9,7 +9,7 @@ export default function Myrecipies() {
     const [Alert,setEditAlert] = useState('');
     const [loader,setLoader] = useState(true);
     const [showdeletealert,setDeleteAlert] = useState('');
-    let {authToken,username} = useContext(AuthContext);
+    let {authToken,username,userDetails} = useContext(AuthContext);
     useEffect(()=>{
         (async()=>{
             await fetch(`${process.env.REACT_APP_API}/api/getuserdashboard/`,{
@@ -31,7 +31,7 @@ export default function Myrecipies() {
     },[myrecipies])
     return (
         <>
-        {username!==null?<RefriBot username={username}/>:null}
+        {username!==null?<RefriBot username={username} userDetails={userDetails}/>:null}
         <section className="page-title" style={{backgroundImage:"url(assets/images/background/10.jpg"}}>
             <div className="auto-container">
                 <h1>My Recipes </h1>

@@ -17,7 +17,7 @@ export const AuthProvider = ({children})=>{
         let username_url = `${process.env.REACT_APP_API}/api/getusername/`+e.target.email.value;
         let user_name = await fetch(username_url);
         const raw = await user_name.json();
-        console.log(raw)
+        // console.log(raw)
         if(await user_name.status === 400){
             setAlert(
                 <div className="alert alert-danger" role="alert">

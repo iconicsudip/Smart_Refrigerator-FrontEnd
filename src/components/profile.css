@@ -1,6 +1,6 @@
 .container-profile {
     width: 310px;
-    height: 400px;
+    height: 450px;
     background: white;
     border-radius: 10px;
     z-index: 2;
@@ -19,8 +19,11 @@
     background-repeat: no-repeat;
     height: 40%;
 }
+.profile-image input{
+    font-size: 0.63rem;
+}
 .card .card-body {
-    height: 40%;
+    /* height: 40%; */
     position: relative;
     width: 100%;
     border-bottom: 1px solid #80808042;

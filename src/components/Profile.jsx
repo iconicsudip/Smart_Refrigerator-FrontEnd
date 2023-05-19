@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import './profile.css'
 import {Link, useParams } from "react-router-dom";
+import FileBase64 from 'react-file-base64';
+import AuthContext from '../context/AuthContext';
 
 export default function Profile() {
     const params = useParams();
     const [userInfo,setUserInfo] =useState(null)
     const [userRecipes,setUserRecipes] = useState([])
     const [loader,setLoader] = useState(true);
+    let {authToken,username} = useContext(AuthContext);
+    const [profileImage,setProfileImage] = useState({
+        image:""
+    })
     const getUserDetails = async (username) => {
         await fetch(`${process.env.REACT_APP_API}/api/userdetails/${username}`,{
             method:'GET',
@@ -29,11 +35,23 @@ export default function Profile() {
             setLoader(false)
         })
     }
+    const saveImage = async ()=>{
+        await fetch(`${process.env.REACT_APP_API}/api/updateuserinfo/${params.user_name}`,{
+            method:'POST',
+            body:JSON.stringify({...profileImage}),
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+ String(authToken.access)
+            },
+        }).then(response=>response.json()).then(json=>{
+            setUserInfo(json)
+            getUserRecipes(params.user_name)
+        })
+    }
     useEffect(()=>{
         getUserDetails(params.user_name)
         getUserRecipes(params.user_name)
     },[params])
-    console.log(userRecipes)
     return (
         <>
             <section className="page-title" style={{backgroundImage:"url(/assets/images/background/10.jpg"}}>
@@ -48,7 +66,12 @@ export default function Profile() {
                             <div className="card">
                                 <div className="card-header"></div>
                                 <div className="card-body">
-                                    <img src="/assets/images/avatar.png" alt="" />
+                                    {
+                                        userInfo?.image ?
+                                        <img src={userInfo?.image} alt="" />
+                                        :
+                                        <img src="/assets/images/avatar.png" alt="" />
+                                    }
                                     <div className="inner">
                                         <div style={{fontSize: "18px",letterSpacing: ".5px",marginBottom: "10px"}}>
                                             {userInfo?.name}
@@ -62,6 +85,17 @@ export default function Profile() {
                                         >
                                         {userInfo?.email}
                                         </div>
+                                        <div style={{fontSize: "18px",letterSpacing: ".5px",marginBottom: "10px"}}>
+                                            Change Image
+                                        </div>
+                                        {username.username === userInfo?.username ?
+                                        
+                                            <div className="d-flex flex-wrap profile-image">
+                                                <FileBase64 style={{fontSize:".63rem"}} type={"image/*"} onDone={ (e) => setProfileImage({...profileImage,image:e.base64}) } required/>
+                                                <button type="button" onClick={saveImage} className="theme-btn search-btn" style={{padding:"1px 11px",color:"white",background:"#ff7d5f",cursor:"pointer"}}>Save</button>
+                                            </div>
+                                        
+                                        :null}
                                     </div>
                                 </div>
                                 <div className="card-footer">

@@ -110,6 +110,26 @@ form.add-item-form{
 header.fixed-header{
     background: #222222!important;
 }
+.box:hover {
+    background: #222222;
+}
+.box {
+    width: max-content;
+    padding: 0.2rem 1rem;
+    background: #ff7d5f;
+    color: white;
+    cursor: pointer;
+    transition: 0.25s;
+}
+section#options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+.timer .minute,.timer .second{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
 .dropdown-menu li{
     line-height: 1.15!important;
     width: 100%;
