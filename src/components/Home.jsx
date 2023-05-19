@@ -8,7 +8,7 @@ import RefriBot from './RefriBot';
 import AuthContext from '../context/AuthContext';
 export default function Home() {
     let [getcarousel,setCarousel] = useState([])
-    let {username} = useContext(AuthContext);
+    let {username,userDetails} = useContext(AuthContext);
     useEffect(()=>{
         setHomeText();
     },[])
@@ -31,7 +31,7 @@ export default function Home() {
     };
     return (
         <>
-        {username!==null?<RefriBot username={username}/>:null}
+        {username!==null?<RefriBot username={username} userDetails={userDetails}/>:null}
         
         <section className="banner-section-two">
             <Slider {...settings}>

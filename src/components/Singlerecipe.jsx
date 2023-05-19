@@ -52,7 +52,7 @@ export default function Singlerecipe(props) {
             setDeleteConfirm(true)
         }else if(e===1){
             setDelOpen(true)
-            console.log(props.recipe)
+            // console.log(props.recipe)
             setEdit(1)
         }
     };
@@ -71,7 +71,7 @@ export default function Singlerecipe(props) {
         setRecipename(e.target.value)
     }
     const handleSave = (e)=>{
-        console.log("saved")
+        // console.log("saved")
     }
     const handleDelete=async (e)=>{
         setDelLoader(true)

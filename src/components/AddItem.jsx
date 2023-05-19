@@ -45,7 +45,7 @@ export default function AddItem(props) {
                         </button>
                     </div>
                 )
-                console.log("Authorization problem")
+                // console.log("Authorization problem")
             }
             localStorage.removeItem('steps')
         }else{

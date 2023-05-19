@@ -16,7 +16,7 @@
 			var windowpos = $(window).scrollTop();
 			var siteHeader = $('.main-header');
 			var scrollLink = $('.scroll-to-top');
-			console.log("hllo")
+			// console.log("hllo")
 			if (windowpos >= 1) {
 				siteHeader.addClass('fixed-header');
 				// scrollLink.fadeIn(300);
@@ -465,8 +465,8 @@
 		);
 		wow.init();
 	}
-	console.log($(".flaticon-media-play-symbol"))
-	console.log($("#recipe_video"))
+	// console.log($(".flaticon-media-play-symbol"))
+	// console.log($("#recipe_video"))
 	$("#play_video").click(function(){
 		//as noted in addendum, check for querystring exitence
 		var symbol = $("#recipe_video")[0].src.indexOf("?") > -1 ? "&" : "?";

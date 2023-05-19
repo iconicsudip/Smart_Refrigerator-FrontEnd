@@ -16,7 +16,7 @@
 			var windowpos = $(window).scrollTop();
 			var siteHeader = $('.main-header');
 			var scrollLink = $('.scroll-to-top');
-			console.log("hllo")
+			// console.log("hllo")
 			if (windowpos >= 1) {
 				siteHeader.addClass('fixed-header');
 				// scrollLink.fadeIn(300);

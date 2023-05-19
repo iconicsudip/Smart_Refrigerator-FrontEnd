@@ -5,9 +5,10 @@ import {Link} from 'react-router-dom'
 import $ from 'jquery'
 import {ImArrowUp} from 'react-icons/im'
 import RefriBot from './RefriBot';
+import Timer from './Timer';
 
 export default function ViewRecipe() {
-    let {authToken,username} = useContext(AuthContext);
+    let {authToken,username,userDetails} = useContext(AuthContext);
     const params = useParams();
     const [getRecipe,setGetRecipe] = useState(null);
     const [loading,setLoading] =useState(false);
@@ -32,7 +33,7 @@ export default function ViewRecipe() {
                     'Authorization':'Bearer '+ String(authToken.access)
                 },
             }).then(response=>response.json()).then(json=>{
-                console.log(json)
+                // console.log(json)
                 setGetRecipe(json)
                 setVote(json.recipe_voted)
                 setLoading(false);
@@ -68,7 +69,7 @@ export default function ViewRecipe() {
     }
     return (
         <>
-        {username!==null?<RefriBot username={username}/>:null}
+        {username!==null?<RefriBot username={username} userDetails={userDetails}/>:null}
         <section className="page-title" style={{backgroundImage:"url(../../assets/images/background/10.jpg"}}>
             <div className="auto-container">
                 <h1>{getRecipe?.recipe_name}</h1>
@@ -189,7 +190,12 @@ export default function ViewRecipe() {
                                                                             <h4>Directions</h4>
                                                                             <ul className="direction-list">
                                                                                 {getRecipe?.recipe_process.map((rep,inx)=>{
-                                                                                    return <li><span>{inx>=0 && inx<=9?`0${inx+1}`:inx+1}</span><br/>{isNum(rep)?"Timer: "+rep+" minutes": rep}</li>
+                                                                                    return (
+                                                                                        <li>
+                                                                                            <span>{inx>=0 && inx<9?`0${inx+1}`:inx+1}</span>
+                                                                                            <br/>{isNum(rep)?<Timer id={inx+1} time={rep} />: rep}
+                                                                                        </li>
+                                                                                    )
                                                                                 })}
                                                                             </ul>
                                                                         </div>
