@@ -20,37 +20,79 @@ export default function Dashboard() {
   const [loader,setLoader] = useState(true);
   const {authToken,username,userDetails} = useContext(AuthContext);
   const [recipeResult,setRecipeResult] = useState(null)
+  const [pageStart,setPageStart] = useState(0);
+  const [total,setTotal] = useState(0)
   const handleOpen = () => setOpen(true);
   const handleClose = () => {
     setOpen(false);
     localStorage.removeItem('steps');
   }
   const getRecipies = async (item)=>{
-    setLoader(true)
-    await fetch(`${process.env.REACT_APP_API}/api/getrecipies/${item}`,{
-        method:'GET',
-        headers:{
-            'Content-Type':'application/json',
-            'Authorization':'Bearer '+ String(authToken.access),
-        },
-    }).then(response=>response.json()).then(json=>{
-      // console.log(json)
-        if(json["notfound"]){
-          setRecipeResult(json["notfound"])
-        }else{
-          setRecipeResult(json["results"]);
-        }
-        setLoader(false);
-    })
+    console.log(item)
+    if(total>pageStart || pageStart===0){
+      setLoader(true)
+      await fetch(`${process.env.REACT_APP_API}/api/getrecipies/${item}/start=${pageStart}`,{
+          method:'GET',
+          headers:{
+              'Content-Type':'application/json',
+              'Authorization':'Bearer '+ String(authToken.access),
+          },
+      }).then(response=>response.json()).then(json=>{
+        // console.log(json)
+          if(json["notfound"]){
+            setRecipeResult(json["notfound"])
+          }else{
+            setTotal(json["total"])
+            if(item==="all"){
+              if(recipeResult!==null){
+                setRecipeResult([...recipeResult,...json["results"]]);
+              }else{
+                setRecipeResult([...json["results"]]);
+              }
+            }else{
+              setRecipeResult([...recipeResult,...json["results"]]);
+            }
+            let newStart = pageStart +4;
+            setPageStart(newStart)
+          }
+          setLoader(false);
+      })
+    }
   }
+  const handleScroll = () => {
+    if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
+        setTimeout(() => {
+          if(search === "" || search===null || search===undefined){
+            setSearchResult(null)
+            getRecipies("all")
+          }else{
+            setSearchResult(null)
+            getRecipies(search)
+          }
+        }, 0);
+    }
+  };
+  useEffect(() => {
+    // fetchData();
+      window.addEventListener('scroll', handleScroll);
+      return () => {
+          window.removeEventListener('scroll', handleScroll);
+      };
+  }, [pageStart]);
   useEffect(()=>{
     getRecipies("all")
   },[])
   useEffect(()=>{
     if(search === ""){
+      setSearchResult(null)
+      setPageStart(0)
+      setTotal(0)
       getRecipies("all")
     }else{
+      console.log(search)
       setSearchResult(null)
+      setPageStart(0)
+      setTotal(0)
       getRecipies(search)
     }
   },[search])
@@ -62,7 +104,7 @@ export default function Dashboard() {
     if(e.target!==undefined){
       final_item = e.target.value;
     }else{
-      final_item = e
+      final_item = ""
     }
     if(final_item===""){
       setSearch(null)
@@ -93,6 +135,8 @@ export default function Dashboard() {
       })
     }else{
       setSearchResult(null)
+      setPageStart(0)
+      setTotal(0)
       setLoader(false);
     }
   }
@@ -174,40 +218,37 @@ export default function Dashboard() {
         </div>
         <div className="outer-container">
           <div className="row clearfix ">
-            {loader?
-              <div className="loader d-flex justify-content-center w-100">
-                  <img src="./loading.gif" width={40} alt="" />
-              </div>:null}
+            
             {Array.isArray(recipeResult)?recipeResult.map((item)=>{
                 return (
                     <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                         <div className="inner-box">
                             <div className="image">
                             
-                                <Link to={`/myrecipies/recipe/${item.id}`}>
-                                  {item.recipe_image==="None" ?
+                                <Link to={`/myrecipies/recipe/${item?.id}`}>
+                                  {item?.recipe_image==="None" ?
                                       <img src="assets/images/resource/entertaining-5.jpg" alt="" />
                                   :
-                                    <img src={`${item.recipe_image}`} alt="" />
+                                    <img src={`${item?.recipe_image}`} alt="" />
                                   }
                                 </Link>
                             </div>
                             <div className="lower-content">
                                 <div className="author-image">
-                                  <Link to={`/profile/${item.author_name}`}>
-                                    {item.author_image ?
-                                        <img src={`${item.author_image}`} alt="" />
+                                  <Link to={`/profile/${item?.author_name}`}>
+                                    {item?.author_image ?
+                                        <img src={`${item?.author_image}`} alt="" />
                                         :
                                         <img src="/assets/images/avatar.png" alt="" />
                                     }
                                   </Link>
                                 </div>
-                                <div className="category">by {item.author_name}</div>
-                                <h4><Link to={`/myrecipies/recipe/${item.id}`}>{item.recipe_name}</Link></h4>
-                                <div className="text">{(item.recipe_process).toString().slice(0,100)}...</div>
+                                <div className="category">by {item?.author_name}</div>
+                                <h4><Link to={`/myrecipies/recipe/${item?.id}`}>{item?.recipe_name}</Link></h4>
+                                <div className="text">{(item?.recipe_process).toString().slice(0,100)}...</div>
                                 <ul className="post-meta">
-                                    <li><span className="icon flaticon-dish"></span>{item.ingredient.length} ingredients</li>
-                                    <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
+                                    <li><span className="icon flaticon-dish"></span>{item?.ingredient?.length} ingredients</li>
+                                    <li><span className="icon flaticon-business-and-finance"></span>{item?.votes} Votes</li>
                                 </ul>
                             </div>
                         </div>
@@ -216,7 +257,10 @@ export default function Dashboard() {
             }):
             <h3 className='text-center w-100'>{recipeResult}</h3>
             }
-              
+            {loader?
+              <div className="loader d-flex justify-content-center w-100">
+                  <img src="./loading.gif" width={40} alt="" />
+              </div>:null}
           </div>
         </div>
       </section>
