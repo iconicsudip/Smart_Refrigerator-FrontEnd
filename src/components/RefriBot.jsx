@@ -25,43 +25,101 @@ const CHATBOT_THEME = {
 };
 
 export default function RefriBot(props) {
+    const [apiResponse, setApiResponse] = useState(null);
+    const [top3Response, setTop3Response] = useState(null);
+    const makeApiCall = (userInput) => {
+        console.log(userInput)
+    };
+    useEffect(() => {
+    
+        // Trigger the API call when apiResponse changes
+        if (apiResponse) {
+            makeApiCall(apiResponse);
+        }
+    }, [apiResponse]);
+    useEffect(() => {
+        const makeApiCall = async (userInput) => {
+            console.log(userInput)
+        };
+    
+        // Trigger the API call when apiResponse changes
+        if (top3Response) {
+            makeApiCall();
+        }
+    }, [top3Response]);
+
+    const handleUserInput = (input) => {
+        console.log(typeof input)
+        // Access user input from step
+        if (input) {
+            // const userInput = input?.value ? input?.value?.trim() : '';
+            setApiResponse(input)
+            // Clear the input value
+            return true
+        }
+        // return false
+        // return true
+    };
+    const handleApi = () =>{
+        console.log(3)
+        setTop3Response(3)
+    }
     const loggedsteps = [
         {
-            id: "0",
+            id: "new",
             message: `Hello! ${props.username.username}. How can I help you ?`,
-            trigger: "1",
+            trigger: "options",
         },
         {
-            id: "1",
+            id: "options",
             options:  [
-                { value: 1, label: "Top 3 recipes", trigger: "2" },
-                { value: 2, label: "Want to get recipes", trigger: "3" }
+                { value: 1, label: "Top 3 recipes", trigger: "top3" },
+                { value: 2, label: "Want to get recipes ?", trigger: "userqs" }
             ]
         },
+
+        
         {
-            id: "2",
+            id: 'userqs',
+            message: 'Please enter your recipe name.',
+            trigger: 'userInput',
+        },
+        {
+            id: 'userInput',
             user: true,
-            trigger: "3",
+            validator:handleUserInput,
+            waitAction: true,
+            trigger: 'userInput',
         },
         {
-            id: "3",
-            message: " Give me a recipe name",
-            trigger:"4"
-        },
-        {
-            id: "4",
-            message: "Choose courses",
-            user:true,
-            trigger:"5"
-        },
-        {
-            id:"5",
-            message:({ previousValue, steps }) => {
-                <RecipeCall value= {previousValue}/>
+            id: 'apiCall',
+            message: 'Loading...',
+            trigger: (apiResponse) => {
+              // Conditionally trigger the next step based on the API response
+              console.log(apiResponse)
+                return apiResponse ? 'displayResponse' : 'apiCall';
             },
-            waitAction:true,
+        },
+        {
+            id: 'displayResponse',
+            component:<RecipeCall value={"h"}/>,
+            end: true,
+        },
+
+
+        {
+            id:"top3",
+            message: 'Loading...',
+            validator:handleApi,
+            trigger: 'call3'
+        },
+        {
+            id:"call3",
+            message:"hhl",
+            end:true
         }
     ];
+    console.log(apiResponse)
     return (
         <>
         <ThemeProvider theme={CHATBOT_THEME}>
