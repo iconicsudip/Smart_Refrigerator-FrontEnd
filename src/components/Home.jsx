@@ -47,7 +47,7 @@ export default function Home() {
                                                 {item?.recipe_image==="None" ?
                                                     <img src="assets/images/resource/image-1.png" alt="" />
                                                 :
-                                                    <img src={`${item?.recipe_image}`} alt="" />
+                                                    <img src={`${item?.recipe_image}`} alt="" style={{width:"20rem"}}/>
                                                 }
                                             </div>
                                             

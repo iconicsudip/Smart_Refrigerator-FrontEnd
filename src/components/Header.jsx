@@ -6,12 +6,16 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import AddItem from './AddItem';
 import {Button} from '@mui/material'
+import {RiFridgeFill} from 'react-icons/ri'
 
 import $ from 'jquery'; 
 export default function Header() {
-    let {username,logoutUser,userDetails} = useContext(AuthContext);
+    let {username,logoutUser,userDetails,authToken} = useContext(AuthContext);
     // const [userDetails,setUserDetails] = useState(null);
     const [open, setOpen] = useState(false);
+    const [loader,setLoader] = useState(false);
+    const [fridgeopen,setFridgeOpen] = useState(false)
+    const [vegList,setVegList] = useState([]);
     const [Alert,setAlert] = useState('');
     const tempFormData = {
         recipe_name: "",
@@ -38,6 +42,42 @@ export default function Header() {
         setOpen(false);
         setFormData(tempFormData)
         localStorage.removeItem('steps');
+    }
+    const getVegName = (name)=>{
+        name = (name).toString().split("_").join(" ")
+        return name.charAt(0).toUpperCase() + name.slice(1);
+    }
+    const fetchVeg = async ()=>{
+        setLoader(true)
+        await fetch(`${process.env.REACT_APP_API}/api/availableveg/`,{
+            method:'GET',
+            headers:{
+                'Content-Type':'application/json',
+                'Authorization':'Bearer '+ String(authToken.access),
+            },
+        }).then(response=>response.json()).then(json=>{
+            let itemArray=[]
+            Object.entries(json).map((item)=>{
+                if(item[1]){
+                    itemArray.push(getVegName(item[0]))
+                }
+            })
+            setVegList(itemArray)
+            console.log(itemArray)
+            setLoader(false);
+        })
+    }
+    useEffect(()=>{
+        console.log(fridgeopen)
+        if(fridgeopen){
+            fetchVeg()
+        }
+    },[fridgeopen])
+    const fridgeOpen = () => {
+        setFridgeOpen(true)
+    }
+    const fridgeClose = ()=>{
+        setFridgeOpen(false)
     }
     let params = useParams()
     // console.log(username["username"])
@@ -128,6 +168,7 @@ export default function Header() {
                                                     <li>
                                                         <Link to="/myrecipies">My Recipes</Link>
                                                     </li>
+                                                    
                                                 </>
                                             ) : null}
                                             {/* <li><Link to="about-us.html">About</Link></li> */}
@@ -144,12 +185,15 @@ export default function Header() {
                                         {username ? 
                                         <>
                                             <li>
+                                                <Link to="#" onClick={fridgeOpen}><RiFridgeFill /></Link>
+                                            </li>
+                                            <li>
                                                 <div className="dropdown text-end">
                                                     <a href="#" className="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                                         {userDetails?.image ?
-                                                            <img src={`${userDetails?.image}`} width="32" height="32" alt="" className="rounded-circle" />
+                                                            <img src={`${userDetails?.image}`} width="32" height="32" alt="" className="rounded-circle" style={{width: "36px",height: "36px"}} />
                                                             :
-                                                            <img src="/assets/images/avatar.png" width="32" height="32" alt="" className="rounded-circle" />
+                                                            <img src="/assets/images/avatar.png" width="32" height="32" alt="" className="rounded-circle"  style={{width: "36px",height: "36px"}}/>
                                                         }
                                                     </a>
                                                     <ul style={{background:"#222222"}} className="dropdown-menu text-small" data-popper-placement="bottom-end">
@@ -177,7 +221,7 @@ export default function Header() {
                     <div className="close-btn"><span className="icon fa fa-remove"></span></div>
                     
                     <nav className="menu-box">
-                        <div className="nav-logo"><Link to="index.html"><img src="assets/images/logo-2.png" alt="" title=""/></Link></div>
+                        <div className="nav-logo"><Link to="/"><img src="assets/images/logo-2.png" alt="" title=""/></Link></div>
                         <div className="menu-outer"></div>
                     </nav>
                 </div>
@@ -188,6 +232,33 @@ export default function Header() {
                 <Box >
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         <AddItem formData={formData} setFormData={setFormData} setOpen={setOpen} setAlert={setAlert} open={open} Open={handleChange} setMyrecipies={""} tempFormData={tempFormData} action={"create"}/>
+                    </Typography>
+                </Box>
+            </Modal>
+            <Modal open={fridgeopen} onClose={fridgeClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
+                <Box >
+                    <Typography id="modal-modal-title-fridge" variant="h6" component="h2">
+                        <div className="my-recipe">
+                            <div className="">
+                                {loader?
+                                    <div className="loader text-center">
+                                        <img src="./loading.gif" width={40} alt="" />
+                                    </div>:
+                                    <div>
+                                        {vegList.length!==0 ?
+                                            <>
+                                                <h5 style={{marginBottom:"1rem"}}>Available vegetables in your fridge</h5>
+                                                <ul>    
+                                                    {vegList.map((item, index) => (
+                                                        <li style={{fontSize:"1rem"}}>{item}</li>
+                                                    ))}
+                                                </ul>
+                                            </>
+                                        :<p className='w-100 text-center'>No vegetables available</p>}
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </Typography>
                 </Box>
             </Modal>
