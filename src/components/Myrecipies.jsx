@@ -9,10 +9,20 @@ export default function Myrecipies() {
     const [Alert,setEditAlert] = useState('');
     const [loader,setLoader] = useState(true);
     const [showdeletealert,setDeleteAlert] = useState('');
+    const [pageStart,setPageStart] = useState(0);
+    const [total,setTotal] = useState(0)
     let {authToken,username,userDetails} = useContext(AuthContext);
-    useEffect(()=>{
-        (async()=>{
-            await fetch(`${process.env.REACT_APP_API}/api/getuserdashboard/`,{
+    useEffect(() => {
+        // fetchData();
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [pageStart]);
+    const fetchData = async () =>{
+        if(total>pageStart || pageStart===0){
+            setLoader(true)
+            await fetch(`${process.env.REACT_APP_API}/api/getuserdashboard/start=${pageStart}`,{
                 method:'GET',
                 headers:{
                     'Content-Type':'application/json',
@@ -22,13 +32,28 @@ export default function Myrecipies() {
                 if(json["alert"]){
                     setAlert(json["alert"])
                 }else{
-                    setMyrecipies(json);
+                    setTotal(json["total"])
+                    setMyrecipies([...myrecipies,...json["results"]]);
+                    let newStart = pageStart +4;
+                    setPageStart(newStart)
                 }
                 setLoader(false);
             })
-        })()
+        }
+    }
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
+            setTimeout(() => {
+                fetchData();
+            }, 0);
+        }
+    };
+    
+    useEffect(()=>{
+        fetchData()
         
-    },[myrecipies])
+    },[])
+    console.log(pageStart)
     return (
         <>
         {username!==null?<RefriBot username={username} userDetails={userDetails}/>:null}
@@ -51,12 +76,9 @@ export default function Myrecipies() {
             {Alert}
             <div className="outer-container">
                 
-                <div className="row clearfix justify-content-center">
+                <div className="row clearfix">
 
-                    {loader?
-                    <div className="loader">
-                        <img src="./loading.gif" width={40} alt="" />
-                    </div>:null}
+                    
                     {showdeletealert}
                     {myrecipies.length!==0?myrecipies.map((recipe,index)=>{
                         return <Singlerecipe setAlert={setEditAlert} setMyrecipies={setMyrecipies} recipe={recipe} setDeleteAlert={setDeleteAlert} key={`recipe${index}`}/>
@@ -70,6 +92,10 @@ export default function Myrecipies() {
                 
                     
                 </div>
+                {loader?
+                    <div className="loader">
+                        <img src="./loading.gif" width={40} alt="" />
+                    </div>:null}
                 
             </div>
         </section>

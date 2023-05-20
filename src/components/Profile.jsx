@@ -10,6 +10,8 @@ export default function Profile() {
     const [userRecipes,setUserRecipes] = useState([])
     const [loader,setLoader] = useState(true);
     let {authToken,username} = useContext(AuthContext);
+    const [pageStart,setPageStart] = useState(0);
+    const [total,setTotal] = useState(0)
     const [profileImage,setProfileImage] = useState({
         image:""
     })
@@ -24,16 +26,21 @@ export default function Profile() {
         })
     }
     const getUserRecipes = async (username)=>{
-        setLoader(true)
-        await fetch(`${process.env.REACT_APP_API}/api/userrecipes/${username}`,{
-            method:'GET',
-            headers:{
-                'Content-Type':'application/json',
-            },
-        }).then(response=>response.json()).then(json=>{
-            setUserRecipes(json)
-            setLoader(false)
-        })
+        if(total>pageStart || pageStart===0){
+            setLoader(true)
+            await fetch(`${process.env.REACT_APP_API}/api/userrecipes/${username}/start=${pageStart}`,{
+                method:'GET',
+                headers:{
+                    'Content-Type':'application/json',
+                },
+            }).then(response=>response.json()).then(json=>{
+                setTotal(json["total"])
+                setUserRecipes([...userRecipes,...json["data"]])
+                let newStart = pageStart +4;
+                setPageStart(newStart)
+                setLoader(false)
+            })
+        }
     }
     const saveImage = async ()=>{
         await fetch(`${process.env.REACT_APP_API}/api/updateuserinfo/${params.user_name}`,{
@@ -48,10 +55,29 @@ export default function Profile() {
             getUserRecipes(params.user_name)
         })
     }
+    const handleScroll = () => {
+        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
+            setTimeout(() => {
+                getUserRecipes(params.user_name)
+            }, 0);
+        }
+    };
+    
+    useEffect(()=>{
+        getUserRecipes(params.user_name)
+        
+    },[])
     useEffect(()=>{
         getUserDetails(params.user_name)
         getUserRecipes(params.user_name)
     },[params])
+    useEffect(() => {
+        // fetchData();
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [pageStart]);
     return (
         <>
             <section className="page-title" style={{backgroundImage:"url(/assets/images/background/10.jpg"}}>
@@ -100,7 +126,7 @@ export default function Profile() {
                                 </div>
                                 <div className="card-footer">
                                     <div className="inner">
-                                        <div>{userRecipes?.data?.length ?? userRecipes?.length}</div>
+                                        <div>{userRecipes?.length ?? userRecipes?.length}</div>
                                         <div className="color__gray">Recipes</div>
                                     </div>
                                 </div>
@@ -126,7 +152,7 @@ export default function Profile() {
                                             <div className="loader w-100 text-center">
                                                 <img src="/loading.gif" width={40} alt="" />
                                             </div>:
-                                            userRecipes?.data?.length!==0?userRecipes?.data?.map((item)=>{
+                                            userRecipes?.length!==0?userRecipes?.map((item)=>{
                                                 return (
                                                     <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
                                                         <div className="inner-box">
