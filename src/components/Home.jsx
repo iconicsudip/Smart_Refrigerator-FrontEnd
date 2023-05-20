@@ -17,7 +17,7 @@ export default function Home() {
         let data = await response.json();
         // // console.log(data['data'],data['home'])
         // setText(data["home"]);
-        setCarousel(data["data"])
+        setCarousel(data["data"].slice(0, 4))
     }
     const settings = {
         dots: true,
