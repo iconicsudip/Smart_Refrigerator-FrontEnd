@@ -494,7 +494,7 @@
 	.main-header .header-upper .outer-box{
 		/* position:absolute; */
 		left:0px;
-		top:18px;
+		top: 4px;
 		right:auto;
 		z-index:12;
 		padding-left:0px;

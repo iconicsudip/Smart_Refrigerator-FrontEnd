@@ -118,7 +118,7 @@ export default function AddItem(props) {
         <>
         <div className='add-recipe'>
             {/* <form className='add-item-form' onSubmit={()=>addRecipe()} > */}
-            <form className='add-item-form add-recipe-col position-relative'>
+            <form className='add-item-form add-recipe-col position-relative' style={{maxWidth:"inherit"}}>
                 <div className="p-2 progdiv">
                     <div className="progress-bar shadow bg-secondary rounded-3">
                         <div className="div text-center" style={{width:progress+"%",backgroundColor: page === 4 ? "green" : "#ff7d5f",}}></div>
