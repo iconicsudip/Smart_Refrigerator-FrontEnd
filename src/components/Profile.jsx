@@ -56,7 +56,17 @@ export default function Profile() {
         })
     }
     const handleScroll = () => {
-        if (window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) {
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        const documentHeight = Math.max(
+        document.body.scrollHeight,
+        document.body.offsetHeight,
+        document.documentElement.clientHeight,
+        document.documentElement.scrollHeight,
+        document.documentElement.offsetHeight
+        );
+
+        const scrollPosition = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+        if (scrollPosition + windowHeight >= documentHeight) {
             setTimeout(() => {
                 getUserRecipes(params.user_name)
             }, 0);
@@ -74,8 +84,10 @@ export default function Profile() {
     useEffect(() => {
         // fetchData();
         window.addEventListener('scroll', handleScroll);
+        window.addEventListener('touchmove', handleScroll);
         return () => {
             window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('touchmove', handleScroll);
         };
     }, [pageStart]);
     return (
@@ -126,7 +138,7 @@ export default function Profile() {
                                 </div>
                                 <div className="card-footer">
                                     <div className="inner">
-                                        <div>{userRecipes?.length ?? userRecipes?.length}</div>
+                                        <div>{total}</div>
                                         <div className="color__gray">Recipes</div>
                                     </div>
                                 </div>
@@ -147,48 +159,46 @@ export default function Profile() {
                             <div className="outer-container">
                                 <div className="row clearfix">
 
-                                    {
-                                        loader?
+                                    {userRecipes?.length!==0?userRecipes?.map((item)=>{
+                                        return (
+                                            <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
+                                                <div className="inner-box">
+                                                    <div className="image">
+                                                        <Link to={`/myrecipies/recipe/${item.id}`}>
+                                                            {item?.recipe_image==="None" ?
+                                                                <img src="/assets/images/resource/recipe-8.jpg" alt="" />
+                                                            :
+                                                                <img src={`${item?.recipe_image}`} alt="" />
+                                                            }
+                                                        </Link>
+                                                    </div>
+                                                    <div className="lower-content">
+                                                        <div className="author-image">
+                                                            <Link to={`/profile/${item.author_name}`}>
+                                                                {item.author_image ?
+                                                                    <img src={`${item.author_image}`} alt="" />
+                                                                    :
+                                                                    <img src="/assets/images/avatar.png" alt="" />
+                                                                }
+                                                            </Link>
+                                                        </div>
+                                                        <div className="category">by {item.author_name}</div>
+                                                        <h4><Link to={`/myrecipies/recipe/${item.id}`}>{item.recipe_name}</Link></h4>
+                                                        <div className="text">{(item.recipe_process).toString().slice(0,100)}...</div>
+                                                        <ul className="post-meta">
+                                                            <li><span className="icon flaticon-dish"></span>{item.ingredient.length} ingredients</li>
+                                                            <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    }):
+                                    <h1>No recipe</h1>}
+                                    {loader?
                                             <div className="loader w-100 text-center">
                                                 <img src="/loading.gif" width={40} alt="" />
-                                            </div>:
-                                            userRecipes?.length!==0?userRecipes?.map((item)=>{
-                                                return (
-                                                    <div className="recipes-block style-three col-lg-3 col-md-6 col-sm-12">
-                                                        <div className="inner-box">
-                                                            <div className="image">
-                                                                <Link to={`/myrecipies/recipe/${item.id}`}>
-                                                                    {item?.recipe_image==="None" ?
-                                                                        <img src="/assets/images/resource/recipe-8.jpg" alt="" />
-                                                                    :
-                                                                        <img src={`${item?.recipe_image}`} alt="" />
-                                                                    }
-                                                                </Link>
-                                                            </div>
-                                                            <div className="lower-content">
-                                                                <div className="author-image">
-                                                                    <Link to={`/profile/${item.author_name}`}>
-                                                                        {item.author_image ?
-                                                                            <img src={`${item.author_image}`} alt="" />
-                                                                            :
-                                                                            <img src="/assets/images/avatar.png" alt="" />
-                                                                        }
-                                                                    </Link>
-                                                                </div>
-                                                                <div className="category">by {item.author_name}</div>
-                                                                <h4><Link to={`/myrecipies/recipe/${item.id}`}>{item.recipe_name}</Link></h4>
-                                                                <div className="text">{(item.recipe_process).toString().slice(0,100)}...</div>
-                                                                <ul className="post-meta">
-                                                                    <li><span className="icon flaticon-dish"></span>{item.ingredient.length} ingredients</li>
-                                                                    <li><span className="icon flaticon-business-and-finance"></span>{item.votes} Votes</li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }):
-                                            <h1>No recipe</h1>
-                                    }
+                                            </div>:null}
                                     
                                 </div>
                             </div>

@@ -210,7 +210,7 @@ export default function ViewRecipe() {
                                                                 {getRecipe?.videourl !== ""?
                                                                     <div className="video-box-two">
                                                                         <div className="image">
-                                                                            <iframe id="recipe_video" src="https://www.youtube.com/embed/tgbNymZ7vqY"  style={{width:"100%",height:"600px"}}></iframe>
+                                                                            <iframe id="recipe_video" src={getRecipe?.videourl}  style={{width:"100%",height:"600px"}}></iframe>
                                                                             <div id="video_overlay" className="lightbox-image overlay-box"><span className="flaticon-media-play-symbol" id="play_video" style={{cursor:"pointer"}}><i className="ripple"></i></span></div>
                                                                         </div>
                                                                     </div>
